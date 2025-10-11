@@ -1,5 +1,16 @@
 # On every push this script is executed
-on: push
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      branch-name:
+        description: 'Branch to run the workflow on'
+        required: true
+        default: 'gh-pages'
+      message:
+        description: 'Custom message for the run'
+        required: false
+        type: string
 name: Build and deploy GH Pages
 jobs:
   build:
