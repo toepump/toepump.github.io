@@ -120,7 +120,33 @@ lint.linters_by_ft = {
 	markdown = { 'markdownlint' },
 	gdscript = { 'gdlint' },
 }
-	```
+```
 
 > [!NOTE] Inline Linting overflow off the buffer
 > To address this I added a keymap that opens a popover diagnostic window to display any of the warnings/errors on the line that your cursor is on. Take a look at the custom keymappings in `init.lua`
+
+---
+
+
+{% chart() %}
+{
+  "type": "Line",
+  "title": "Monthly income of an indie developer",
+  "xLabel": "Month",
+  "yLabel": "$ Dollars",
+  "data": {
+    "labels": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+    "datasets": [
+      {
+        "label": "Plan",
+        "data": [30, 70, 200, 300, 500, 800, 1500, 2900, 5000, 8000]
+      },
+      {
+        "label": "Reality",
+        "data": [0, 1, 30, 70, 80, 100, 50, 80, 40, 150]
+      }
+    ]
+  }
+}
+{% end %}
+

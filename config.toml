@@ -20,7 +20,7 @@ highlight_code = true
 katex.enabled = false
 katex.auto_render = false
 
-chart.enabled = false
+chart.enabled = true
 mermaid.enabled = false
 galleria.enabled = false
 
