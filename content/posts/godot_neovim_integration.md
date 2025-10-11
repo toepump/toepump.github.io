@@ -1,8 +1,9 @@
 +++
 title = "My Godot and Neovim Setup"
 description = "How I setup Godot Engine to work seamlessly with Neovim as an external editor."
-tags = ["godot", "neovim", "fish", "ghostty", "linux"]
 date = 2025-10-10
+[taxonomies]
+tags = ["godot", "neovim", "fish", "ghostty", "linux"]
 +++
 
 
@@ -77,7 +78,8 @@ require('lspconfig')['gdscript'].setup {
 
 Once you do the above, then then all you need to do is follow the other instruction on the blog post above.
 
-> [!NOTE] But I didn't install `gdscript` with `mason` yet?
+> [!NOTE]
+> But I didn't install `gdscript` with `mason` yet?
 > You don't need to actually. Usually, you'd need to install the LSP for your language either on it's own through `mason`, or with the convenient auto-setup via `mason-lspconfig`. But `gdscript` language server actually runs in the Godot Editor itself, so (1) you don't install it via `mason`, and (2) `mason-lspconfing` wouldn't even have a pre-config for you.
 >  You just need to have Godot running, and then the server is available if you hook up `nvim` to the godot Language Server port (as described in the article).
 
