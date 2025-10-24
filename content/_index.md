@@ -9,4 +9,3 @@ I'm a **frontend web developer**, aspiring **solo game developer**, and **musici
 
 I'm based in **Tokyo, Japan**.
 
----
