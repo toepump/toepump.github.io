@@ -22,7 +22,7 @@ This guide is based on my experience following the official Arch `mpd`/`rmpc` wi
 Me :confused: : Uh-huh... what's MPD?
 
 Right, MPD is Music Player Daemon which is a server-side application for playing music.
-The only thing we need to know (re: the only thing I know) is that it's the backend driver for the `rmpc` terminal frontend.
+The only thing we need to know (re: the only thing I know) is that it's a common backend driver for many GUI frontends, like the one we're interested in: `rmpc`.
 
 ## Why use `rmpc`?
 
@@ -30,9 +30,9 @@ For me there are 3 reasons:
 
 1. Because it's freakin' cool looking. Like, a Terminal UI to play music? Hell yeah!
 2. Because I miss the pre-streaming, pre-subscription era of music.
-    - I miss having my _own_ library that I care about and listen to over and over again.
-    - I miss the days of CD Players and even iPods when you'd chose what music to take with you with intention. And if you didn't have it? Well too bad, listen to what you got!
-3. I was writing music for my game project and when I exported it I realized I didn't have software to play it (I'm on Linux...). I've gotten used to relying on streaming services and Apple Music / Spotify haven't been super friendly to playing my local library.
+    - I miss having my _own_ library that I care for and listen through over and over again. Streaming services have many benefits, but I like the idea of slowing down with my own library.
+    - I miss the days of CD Players and even iPods when you'd chose what music to take with you with intention.
+3. More practically, I was writing music for my game project. When I exported the song, I realized that I didn't have something like iTunes to play it. I've gotten so used to the Apple ecosystem and just using streaming services exclusively, I didn't realize how troublesome it has become to just have an .mp3 file and want to add it to a local library.
     - I do already have [Cider](https://cider.sh/) as a frontend for Apple Music on Linux. But I wanted a personal lightweight option to basically manage my own library and music.
 
 Enter `rmpc`...
@@ -46,7 +46,7 @@ Enter `rmpc`...
 The first thing you need to do is install `mpd`.
 Remember this is the brain of the operation, it's the backend.
 
-`mpd` will take of the things that music players take care of. Like:
+`mpd` will take care of the things that music players take care of. Like:
 - database creation and operation
 - audio output and management
 - running the audio server in the background
@@ -55,13 +55,14 @@ Remember this is the brain of the operation, it's the backend.
 It can also be heavily configured. If you're interested to learn about more advanaced configurations then visit the [webpage](https://mpd.readthedocs.io/en/stable/index.html).
 
 For my purposes, `mpd` is only really needed at the most basic level - for just playing my local audio files and making them easy to organize, queue up, etc.
+So the configuration is actually very light :thumbsup:.
 
 ### Installation
 
 > For your specific Linux distro or package manager, I recommend visiting the actual `mpd` docs linked above. For me, I'm using Arch Linux.
 
-**As an important note**, I will be setting up `mpd` in the "per-user" mode which means my configuration will be for me as a user on my system.
-This makes it easier to install because I don't need to worry as much about permissions, and I can place my configuration in my usual `~/.config` directory.
+**As an important note**, I will be setting up `mpd` in the "per-user" mode which means that my configuration will be for me as a user as opposed to system-wide.
+This makes it easier to install because I don't need to worry as much about permissions, and I can place my configuration in my usual user `~/.config` directory.
 
 If you're setting this up on something that needs to be system-wide or on a remote server, this guide should not be followed step-by-step.
 Instead, look for the analogous "system-wide" steps on the docs.
@@ -78,7 +79,9 @@ yay -S mpd
 mkdir -p ~/.config/mpd
 ```
 
-3. Grab the configuration example template (it explains many of the config parameters) and copy it into a new `mpd.conf` file
+3. Grab the configuration example template and copy it into a new `mpd.conf` file.
+
+The example template is a mostly commented out file that explains all of the parameters and provides commented-out common defaults.
 
 ```bash
 cp /usr/share/doc/mpd/mpdconf.example ~/.config/mpd/mpd.conf
@@ -86,7 +89,8 @@ cp /usr/share/doc/mpd/mpdconf.example ~/.config/mpd/mpd.conf
 
 4. Configure the `mpd.conf` file
 
-There are many options. But in reality, to get things up and running for a local music library and player, you really don't need to touch many of the defaults.
+There are many options. 
+But in truth, to get things up and running for a local music library and player, you really don't need to touch many of them.
 I recommend reading the comments in the example configuration file or the docs, but at the end of the day, here are the active lines in my config:
 
 ```conf
@@ -106,7 +110,7 @@ bind_to_address		"127.0.0.1"
 # If not enabled, you'd need to make sure to update via your client (rmpc)
 auto_update	"yes"
 
-# This is just set by default in the example config
+# This is one of the few parameters set by default in the example config
 input {
         plugin "curl"
 #       proxy "proxy.isp.com:8080"
@@ -125,7 +129,7 @@ audio_output {
 That's it!
 Then to run `mpd` in **user mode**, do:
 
-```
+```bash
 systemctl --user start mpd
 ```
 
@@ -133,7 +137,7 @@ It's important to run in **user mode** as it means you won't run into permission
 
 Confirm that it's running with:
 
-```
+```bash
 systemctl --user status mpd
 ```
 
@@ -154,7 +158,7 @@ yay -S rmpc
 rmpc config > ~./.config/rmpc/config.ron
 ```
 
-3. Ensure that your `address` parameter matches the address you configured for `mpd`.
+3. In the config file, just ensure that your `address` parameter matches the address you configured for `mpd`.
 
 ```conf
 ...
