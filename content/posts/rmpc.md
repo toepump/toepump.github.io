@@ -33,7 +33,7 @@ For me there are 3 reasons:
     - I miss having my _own_ library that I care for and listen through over and over again. Streaming services have many benefits, but I like the idea of slowing down with my own library.
     - I miss the days of CD Players and even iPods when you'd chose what music to take with you with intention.
 3. More practically, I was writing music for my game project. When I exported the song, I realized that I didn't have something like iTunes to play it. I've gotten so used to the Apple ecosystem and just using streaming services exclusively, I didn't realize how troublesome it has become to just have an .mp3 file and want to add it to a local library.
-    - I do already have [Cider](https://cider.sh/) as a frontend for Apple Music on Linux. But I wanted a personal lightweight option to basically manage my own library and music.
+    - I do already have [Cider](https://cider.sh/) as a frontend for Apple Music on Linux. But Apple does not provide support for uploading local files to the cloud through Linux (only MacOS and Windows).
 
 Enter `rmpc`...
 
