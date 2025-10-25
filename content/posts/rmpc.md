@@ -103,7 +103,7 @@ playlist_directory		"~/.config/mpd/playlists"
 # Where you want the mpd database file to be stored
 db_file			"~/.config/mpd/database"
 
-# The address to use (in this case localhost)
+# The address to run mpd from (in this case localhost)
 bind_to_address		"127.0.0.1"
 
 # Enables mpd to watch the above "music_directory" to automatically update
@@ -158,7 +158,9 @@ yay -S rmpc
 rmpc config > ~./.config/rmpc/config.ron
 ```
 
-3. In the config file, just ensure that your `address` parameter matches the address you configured for `mpd`.
+3. In the config file, just ensure that your `address` parameter matches the address you configured for `mpd` so that `rmpc` can hook up to it.
+
+By default it uses `6600` port and the same localhost address we configured. So far I've not had any problems with this default.
 
 ```conf
 ...
