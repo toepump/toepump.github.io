@@ -13,6 +13,8 @@ This guide is based on my experience following the official Arch `mpd`/`rmpc` wi
 - [mpd docs](https://mpd.readthedocs.io/en/stable/index.html)
 - [rmpc docs](https://mierak.github.io/rmpc/)
 
+Dependencies needed: `mpd`, `rmpc`, (optional) `cava` for visualizer.
+
 ## What is rmpc?
 
 [rmpc](https://github.com/mierak/rmpc) is a:
