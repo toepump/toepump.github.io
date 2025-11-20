@@ -100,10 +100,10 @@ I recommend reading the comments in the example configuration file or the docs, 
 music_directory		"~/Music"
 
 # Where you want to keep your playlist files for mpd to save and load
-playlist_directory		"~/.config/mpd/playlists"
+playlist_directory		"~/Music/playlists"
 
 # Where you want the mpd database file to be stored
-db_file			"~/.config/mpd/database"
+db_file			"~/Music/database"
 
 # The address to run mpd from (in this case localhost)
 bind_to_address		"127.0.0.1"
@@ -185,6 +185,11 @@ Now that you should have `mpd` powering a nice `rmpc` frontend, you just need to
 Adding music is as simple as copying your files in the directory you setup for your music files earlier.
 If they don't show up right, then try doing `rmpc update`.
 You shouldn't need to do this though as it should be automatically updating when you open `rmpc` due to the `mpd` configuration that you set earlier: `auto_update: "yes"`.
+
+You can also try your hand at customizing the paneling, themes, etc. There are a lot ways to configure `rmpc`.
+You can go ahead and refer to my custom theme in my [dotfiles](https://github.com/toepump/dotfiles) if it's to your liking :smile:!
+
+![my customized rmpc](/images/custom_rmpc.png "my custom theme for rmpc")
 
 That's it! Enjoy!
 
