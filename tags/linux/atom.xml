@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>toepump - linux</title>
+    <subtitle>The personal web page of toepump, a developer and musician.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://toepump.github.io/tags/linux/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://toepump.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-10-24T00:00:00+00:00</updated>
+    <id>https://toepump.github.io/tags/linux/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Setting up rmpc (Rusty Music Player Client)</title>
+        <published>2025-10-24T00:00:00+00:00</published>
+        <updated>2025-10-24T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://toepump.github.io/posts/rmpc/"/>
+        <id>https://toepump.github.io/posts/rmpc/</id>
+        
+        <content type="html" xml:base="https://toepump.github.io/posts/rmpc/">&lt;p&gt;&lt;img src=&quot;&#x2F;images&#x2F;rmpc.png&quot; alt=&quot;my rmpc&quot; title=&quot;rmpc running&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;This guide is based on my experience following the official Arch &lt;code&gt;mpd&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;rmpc&lt;&#x2F;code&gt; wikis and their respective official documentations.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;wiki.archlinux.org&#x2F;title&#x2F;Music_Player_Daemon#&quot;&gt;Arch Wiki&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;mpd.readthedocs.io&#x2F;en&#x2F;stable&#x2F;index.html&quot;&gt;mpd docs&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;mierak.github.io&#x2F;rmpc&#x2F;&quot;&gt;rmpc docs&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Dependencies needed: &lt;code&gt;mpd&lt;&#x2F;code&gt;, &lt;code&gt;rmpc&lt;&#x2F;code&gt;, (optional) &lt;code&gt;cava&lt;&#x2F;code&gt; for visualizer.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-is-rmpc&quot;&gt;What is rmpc?&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;mierak&#x2F;rmpc&quot;&gt;rmpc&lt;&#x2F;a&gt; is a:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Configurable, terminal based MPD Client with album art support via various terminal image protocols&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Me 😕 : Uh-huh... what&#x27;s MPD?&lt;&#x2F;p&gt;
+&lt;p&gt;Right, MPD is Music Player Daemon which is a server-side application for playing music.
+The only thing we need to know (re: the only thing I know) is that it&#x27;s a common backend driver for many GUI frontends, like the one we&#x27;re interested in: &lt;code&gt;rmpc&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;why-use-rmpc&quot;&gt;Why use &lt;code&gt;rmpc&lt;&#x2F;code&gt;?&lt;&#x2F;h2&gt;
+&lt;p&gt;For me there are 3 reasons:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Because it&#x27;s freakin&#x27; cool looking. Like, a Terminal UI to play music? Hell yeah!&lt;&#x2F;li&gt;
+&lt;li&gt;Because I miss the pre-streaming, pre-subscription era of music.
+&lt;ul&gt;
+&lt;li&gt;I miss having my &lt;em&gt;own&lt;&#x2F;em&gt; library that I care for and listen through over and over again. Streaming services have many benefits, but I like the idea of slowing down with my own library.&lt;&#x2F;li&gt;
+&lt;li&gt;I miss the days of CD Players and even iPods when you&#x27;d chose what music to take with you with intention.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;More practically, I was writing music for my game project. When I exported the song, I realized that I didn&#x27;t have something like iTunes to play it. I&#x27;ve gotten so used to the Apple ecosystem and just using streaming services exclusively, I didn&#x27;t realize how troublesome it has become to just have an .mp3 file and want to add it to a local library.
+&lt;ul&gt;
+&lt;li&gt;I do already have &lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;cider.sh&#x2F;&quot;&gt;Cider&lt;&#x2F;a&gt; as a frontend for Apple Music on Linux. But Apple does not provide support for uploading local files to the cloud through Linux (only MacOS and Windows).&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Enter &lt;code&gt;rmpc&lt;&#x2F;code&gt;...&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;mpd&quot;&gt;&lt;code&gt;mpd&lt;&#x2F;code&gt;&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;what-is-it&quot;&gt;What is it?&lt;&#x2F;h3&gt;
+&lt;p&gt;The first thing you need to do is install &lt;code&gt;mpd&lt;&#x2F;code&gt;.
+Remember this is the brain of the operation, it&#x27;s the backend.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;mpd&lt;&#x2F;code&gt; will take care of the things that music players take care of. Like:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;database creation and operation&lt;&#x2F;li&gt;
+&lt;li&gt;audio output and management&lt;&#x2F;li&gt;
+&lt;li&gt;running the audio server in the background&lt;&#x2F;li&gt;
+&lt;li&gt;etc.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;It can also be heavily configured. If you&#x27;re interested to learn about more advanaced configurations then visit the &lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;mpd.readthedocs.io&#x2F;en&#x2F;stable&#x2F;index.html&quot;&gt;webpage&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;For my purposes, &lt;code&gt;mpd&lt;&#x2F;code&gt; is only really needed at the most basic level - for just playing my local audio files and making them easy to organize, queue up, etc.
+So the configuration is actually very light 👍.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;installation&quot;&gt;Installation&lt;&#x2F;h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;For your specific Linux distro or package manager, I recommend visiting the actual &lt;code&gt;mpd&lt;&#x2F;code&gt; docs linked above. For me, I&#x27;m using Arch Linux.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;As an important note&lt;&#x2F;strong&gt;, I will be setting up &lt;code&gt;mpd&lt;&#x2F;code&gt; in the &quot;per-user&quot; mode which means that my configuration will be for me as a user as opposed to system-wide.
+This makes it easier to install because I don&#x27;t need to worry as much about permissions, and I can place my configuration in my usual user &lt;code&gt;~&#x2F;.config&lt;&#x2F;code&gt; directory.&lt;&#x2F;p&gt;
+&lt;p&gt;If you&#x27;re setting this up on something that needs to be system-wide or on a remote server, this guide should not be followed step-by-step.
+Instead, look for the analogous &quot;system-wide&quot; steps on the docs.&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Install &lt;code&gt;mpd&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;yay&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt; -S&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; mpd&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;Create a configuration directory for &lt;code&gt;mpd&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;mkdir&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt; -p&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; ~&#x2F;.config&#x2F;mpd&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;Grab the configuration example template and copy it into a new &lt;code&gt;mpd.conf&lt;&#x2F;code&gt; file.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;The example template is a mostly commented out file that explains all of the parameters and provides commented-out common defaults.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;cp&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; &#x2F;usr&#x2F;share&#x2F;doc&#x2F;mpd&#x2F;mpdconf.example ~&#x2F;.config&#x2F;mpd&#x2F;mpd.conf&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol start=&quot;4&quot;&gt;
+&lt;li&gt;Configure the &lt;code&gt;mpd.conf&lt;&#x2F;code&gt; file&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;There are many options.
+But in truth, to get things up and running for a local music library and player, you really don&#x27;t need to touch many of them.
+I recommend reading the comments in the example configuration file or the docs, but at the end of the day, here are the active lines in my config:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;# Where you want to keep your music files for mpd to watch&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;music_directory&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;		&amp;quot;~&#x2F;Music&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;# Where you want to keep your playlist files for mpd to save and load&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;playlist_directory&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;		&amp;quot;~&#x2F;Music&#x2F;playlists&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;# Where you want the mpd database file to be stored&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;db_file&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;			&amp;quot;~&#x2F;Music&#x2F;database&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;# The address to run mpd from (in this case localhost)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;bind_to_address&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;		&amp;quot;127.0.0.1&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;# Enables mpd to watch the above &amp;quot;music_directory&amp;quot; to automatically update&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;# If not enabled, you&amp;#39;d need to make sure to update via your client (rmpc)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;auto_update&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;	&amp;quot;yes&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;# This is one of the few parameters set by default in the example config&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;input&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;        plugin&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; &amp;quot;curl&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;#       proxy &amp;quot;proxy.isp.com:8080&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;#       proxy_user &amp;quot;user&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;#       proxy_password &amp;quot;password&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;# Here you&amp;#39;d need to make sure you use YOUR audio server.&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;# To do so, run `inxi -A` and check.&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;audio_output&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;	type&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;		&amp;quot;pipewire&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;	name&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;		&amp;quot;PipeWire Sound Server&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;That&#x27;s it!
+Then to run &lt;code&gt;mpd&lt;&#x2F;code&gt; in &lt;strong&gt;user mode&lt;&#x2F;strong&gt;, do:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;systemctl&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt; --user&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; start mpd&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;It&#x27;s important to run in &lt;strong&gt;user mode&lt;&#x2F;strong&gt; as it means you won&#x27;t run into permissions issues.&lt;&#x2F;p&gt;
+&lt;p&gt;Confirm that it&#x27;s running with:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;systemctl&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt; --user&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; status mpd&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;rmpc&quot;&gt;&lt;code&gt;rmpc&lt;&#x2F;code&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;rmpc&lt;&#x2F;code&gt; is pretty straightforward to set up.&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Install &lt;code&gt;rmpc&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;yay&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt; -S&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; rmpc&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;Configure &lt;code&gt;rmpc&lt;&#x2F;code&gt; with the bootstrapping config command.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;# If the rmpc directory doesn&amp;#39;t exist you may need to create it&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;rmpc&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; config&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; &amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; ~.&#x2F;.config&#x2F;rmpc&#x2F;config.ron&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;In the config file, just ensure that your &lt;code&gt;address&lt;&#x2F;code&gt; parameter matches the address you configured for &lt;code&gt;mpd&lt;&#x2F;code&gt; so that &lt;code&gt;rmpc&lt;&#x2F;code&gt; can hook up to it.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;By default it uses &lt;code&gt;6600&lt;&#x2F;code&gt; port and the same localhost address we configured. So far I&#x27;ve not had any problems with this default.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;...&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;    address:&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; &amp;quot;127.0.0.1:6600&amp;quot;,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;...&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol start=&quot;4&quot;&gt;
+&lt;li&gt;Run &lt;code&gt;rmpc&lt;&#x2F;code&gt;!&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;rmpc&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;post-installation&quot;&gt;Post Installation&lt;&#x2F;h2&gt;
+&lt;p&gt;Now that you should have &lt;code&gt;mpd&lt;&#x2F;code&gt; powering a nice &lt;code&gt;rmpc&lt;&#x2F;code&gt; frontend, you just need to start adding music to your library and learning how to use &lt;code&gt;rmpc&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Adding music is as simple as copying your files in the directory you setup for your music files earlier.
+If they don&#x27;t show up right, then try doing &lt;code&gt;rmpc update&lt;&#x2F;code&gt;.
+You shouldn&#x27;t need to do this though as it should be automatically updating when you open &lt;code&gt;rmpc&lt;&#x2F;code&gt; due to the &lt;code&gt;mpd&lt;&#x2F;code&gt; configuration that you set earlier: &lt;code&gt;auto_update: &quot;yes&quot;&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;You can also try your hand at customizing the paneling, themes, etc. There are a lot ways to configure &lt;code&gt;rmpc&lt;&#x2F;code&gt;.
+You can go ahead and refer to my custom theme in my &lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;toepump&#x2F;dotfiles&quot;&gt;dotfiles&lt;&#x2F;a&gt; if it&#x27;s to your liking 😄!&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;images&#x2F;custom_rmpc.png&quot; alt=&quot;my customized rmpc&quot; title=&quot;my custom theme for rmpc&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;That&#x27;s it! Enjoy!&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>My Godot and Neovim Setup</title>
+        <published>2025-10-10T00:00:00+00:00</published>
+        <updated>2025-10-10T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://toepump.github.io/posts/godot-neovim-integration/"/>
+        <id>https://toepump.github.io/posts/godot-neovim-integration/</id>
+        
+        <content type="html" xml:base="https://toepump.github.io/posts/godot-neovim-integration/">&lt;h2 id=&quot;environment&quot;&gt;Environment&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Component Type&lt;&#x2F;th&gt;&lt;th&gt;Component Value&lt;&#x2F;th&gt;&lt;th&gt;Notes&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Linux Distro&lt;&#x2F;td&gt;&lt;td&gt;&lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;endeavouros.com&#x2F;&quot;&gt;Endeavor OS (GNOME)&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;&lt;td&gt;All of the linux packages mentioned in this document are native &lt;code&gt;pacman&lt;&#x2F;code&gt; packages (official maintained ones, not from AUR)&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;Terminal Emulator&lt;&#x2F;td&gt;&lt;td&gt;&lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;ghostty.org&#x2F;&quot;&gt;Ghostty&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;Shell&lt;&#x2F;td&gt;&lt;td&gt;&lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;fishshell.com&#x2F;&quot;&gt;Fish&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;This article assumes an &lt;code&gt;nvim&lt;&#x2F;code&gt; setup based on Kickstart.Nvim.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;goals&quot;&gt;Goals&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Open scripts that are clicked from Godot Engine in neovim&lt;&#x2F;li&gt;
+&lt;li&gt;Support LSP features for autocomplete, go-to references, etc.&lt;&#x2F;li&gt;
+&lt;li&gt;Godot Engine documentation references in neovim&lt;&#x2F;li&gt;
+&lt;li&gt;Formatting&lt;&#x2F;li&gt;
+&lt;li&gt;Linting&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;tldr;&lt;&#x2F;p&gt;
+&lt;p&gt;Do mostly what Simon Dalvai did here: &lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;simondalvai.org&#x2F;blog&#x2F;godot-neovim&#x2F;&quot;&gt;Neovim As External Editor for Godot&lt;&#x2F;a&gt;
+But if you run into any issues (particularly if you&#x27;re based on Kickstart.Nvim), then come back here take a look at my notes!&lt;&#x2F;p&gt;
+&lt;p&gt;I was unable to get it working without some further investigation.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;problem-1-mason-lspconfig&quot;&gt;Problem 1: mason-lspconfig&lt;&#x2F;h2&gt;
+&lt;p&gt;Kickstart sets you up with &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt; and encourages you to use it for setting up Language Server Protocols if possible.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;I wasn&#x27;t able to get the Godot lsp working via &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt;.&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Why? Because &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt; does not have a pre-configuration mapping for &lt;code&gt;gdscript&lt;&#x2F;code&gt; language server.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt; is basically just a convenience which bridges the gap between &lt;code&gt;mason&lt;&#x2F;code&gt; and &lt;code&gt;nvim-lspconfig&lt;&#x2F;code&gt;. Their purposes are respectively:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;mason&lt;&#x2F;code&gt; - managing packages for lsp by downloading them and installing them&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;nvim-lspconfig&lt;&#x2F;code&gt; - configuring and &lt;em&gt;enabling&lt;&#x2F;em&gt; these lsps for nvim to use&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;&lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt; just makes it easier to do all of the above in one step for &lt;em&gt;supported language servers&lt;&#x2F;em&gt; (install, enable, configure). However, &lt;code&gt;gdscript&lt;&#x2F;code&gt; is &lt;em&gt;not&lt;&#x2F;em&gt; one of the supported languages.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Now, Kickstart is a little misleading here as the &lt;code&gt;mason-config&lt;&#x2F;code&gt; setup lines have comments saying that you can do &lt;code&gt;:help lspconfig-all&lt;&#x2F;code&gt; to see all the pre-configured languages. If you do so, then &lt;code&gt;gdscript&lt;&#x2F;code&gt; actually does show up.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;However, this list is only describing the available &lt;code&gt;nvim-lspconfig&lt;&#x2F;code&gt; language servers. It has nothing to do with &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt; which, again, doesn&#x27;t have a mapping from &lt;code&gt;mason&lt;&#x2F;code&gt; to &lt;code&gt;nvim-lspconfig&lt;&#x2F;code&gt;&#x27;s managed &lt;code&gt;gdscript&lt;&#x2F;code&gt; language server.&lt;&#x2F;p&gt;
+&lt;p&gt;If you do attempt to set up &lt;code&gt;gdscript&lt;&#x2F;code&gt; via &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt;, then you&#x27;ll get an error saying that the &lt;code&gt;gdscript&lt;&#x2F;code&gt; package was not found.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Here is the key insight. Godot itself holds a language server and is expected to be running while you write gdscript code.&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;So, actually it sort of makes sense that the &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt; guys didn&#x27;t bother with implementing a bridge to &lt;code&gt;nvim-lspconfig&lt;&#x2F;code&gt; for a language server that most people won&#x27;t even install with &lt;code&gt;mason&lt;&#x2F;code&gt;. (See below Note: &quot;But I didn&#x27;t install gdscript with mason yet?&quot;)&lt;&#x2F;p&gt;
+&lt;p&gt;In other words, why create a convenient auto setup from &lt;code&gt;mason&lt;&#x2F;code&gt; to &lt;code&gt;nvim-lspconfig&lt;&#x2F;code&gt; for a language that nobody will, or should, install via &lt;code&gt;mason&lt;&#x2F;code&gt; in the first place. Just let Godot be the LSP.&lt;&#x2F;p&gt;
+&lt;p&gt;So, in the end, the thing to do is to assume that you will have a &lt;code&gt;gdscript&lt;&#x2F;code&gt; LSP server available (making &lt;code&gt;mason&lt;&#x2F;code&gt; redundant), and just configure &lt;code&gt;nvim-lspconfig&lt;&#x2F;code&gt; to make neovim aware of it (side stepping the need for &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt;):&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;--- kickstarts mason-lspconfig setup&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;require&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;&amp;#39;mason-lspconfig&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;).&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;setup&lt;&#x2F;span&gt;&lt;span&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;	ensure_installed&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span&gt; {}, &lt;&#x2F;span&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;-- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;	automatic_installation&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt; false&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;	handlers&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F97583;&quot;&gt;		function&lt;&#x2F;span&gt;&lt;span&gt;(server_name)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F97583;&quot;&gt;			local&lt;&#x2F;span&gt;&lt;span&gt; server&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span&gt; servers[server_name] &lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt;or&lt;&#x2F;span&gt;&lt;span&gt; {}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;			print&lt;&#x2F;span&gt;&lt;span&gt;(server_name)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;			-- This handles overriding only values explicitly passed&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;			-- by the server configuration above. Useful when disabling&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;			-- certain features of an LSP (for example, turning off formatting for ts_ls)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;			server.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;capabilities&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span&gt; vim.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;tbl_deep_extend&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;&amp;#39;force&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;, {}, capabilities, server.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;capabilities&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; or&lt;&#x2F;span&gt;&lt;span&gt; {})&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;			require&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;&amp;#39;lspconfig&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;)[server_name].&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;setup&lt;&#x2F;span&gt;&lt;span&gt;(server)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F97583;&quot;&gt;		end&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;-- LOOK HERE: standalone gdscript setup, separate from the other lsps which are configured via mason-lspconfig above&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;require&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;&amp;#39;lspconfig&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;)[&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;&amp;#39;gdscript&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;].&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;setup&lt;&#x2F;span&gt;&lt;span&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;	name&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; &amp;#39;godot&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;	cmd&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span&gt; vim.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;lsp&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;rpc&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;connect&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;&amp;#39;127.0.0.1&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;6005&lt;&#x2F;span&gt;&lt;span&gt;),&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The above code says &quot;hey I know an LSP exists already, so let&#x27;s hook up neovim to it on the specified port.&quot;
+This makes sense because all we need is &quot;hook up neovim,&quot; which as mentioned earlier, is the responsibility of &lt;code&gt;nvim-lspconfig&lt;&#x2F;code&gt;, not &lt;code&gt;mason&lt;&#x2F;code&gt; nor &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;But I didn&#x27;t install &lt;code&gt;gdscript&lt;&#x2F;code&gt; with &lt;code&gt;mason&lt;&#x2F;code&gt; yet?&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Again, you actually don&#x27;t need to. Usually, you&#x27;d need to install the LSP for your language either on it&#x27;s own through &lt;code&gt;mason&lt;&#x2F;code&gt;, or with the convenient auto-setup via &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt;. But &lt;code&gt;gdscript&lt;&#x2F;code&gt; language server actually runs in the Godot Editor itself, so (1) you don&#x27;t install it via &lt;code&gt;mason&lt;&#x2F;code&gt;, and (2) &lt;code&gt;mason-lspconfing&lt;&#x2F;code&gt; wouldn&#x27;t even have a pre-config for you.
+You just need to have Godot running, and then the server is available if you hook up &lt;code&gt;nvim&lt;&#x2F;code&gt; to the godot Language Server port (as described in the article).&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h3 id=&quot;problem-2-opening-files-from-godot&quot;&gt;Problem 2: opening files from Godot&lt;&#x2F;h3&gt;
+&lt;p&gt;You can follow the instruction on Simon Dalvai&#x27;s blog post and it should work.
+However, one thing to note is that if you close &lt;code&gt;nvim&lt;&#x2F;code&gt; by closing the terminal emulator, it won&#x27;t actually remove the &lt;code&gt;server-pipe&lt;&#x2F;code&gt; file that was created by the above command.&lt;&#x2F;p&gt;
+&lt;p&gt;You must close &lt;code&gt;nvim&lt;&#x2F;code&gt; explicitly with the &lt;code&gt;:q&lt;&#x2F;code&gt; command.&lt;&#x2F;p&gt;
+&lt;p&gt;If you forget, and you&#x27;re left with a lingering &lt;code&gt;server.pipe&lt;&#x2F;code&gt; file, then you won&#x27;t be able to open files from Godot. To workaround this, you can delete the &lt;code&gt;server.pipe&lt;&#x2F;code&gt; file and re-run nvim. So double check your project directory if you&#x27;re unable to open the files from godot in neovim.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h3 id=&quot;problem-3-formatting-and-linting&quot;&gt;Problem 3: Formatting and Linting&lt;&#x2F;h3&gt;
+&lt;p&gt;I mentioned before that &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt; does not know what &lt;code&gt;gdscript&lt;&#x2F;code&gt; is. This is true.
+However, it DOES know what &lt;code&gt;gdtoolkit&lt;&#x2F;code&gt; is.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;gdtoolkit&lt;&#x2F;code&gt; is simply a library that provides a &lt;em&gt;formatter&lt;&#x2F;em&gt; and a &lt;em&gt;linter&lt;&#x2F;em&gt;. &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt; can indeed install this via the super simple &lt;code&gt;gdtoolkit = {}&lt;&#x2F;code&gt; line similar to &lt;code&gt;ts_ls = {}&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;However, for this to be usable you need to hook up your &lt;code&gt;nvim&lt;&#x2F;code&gt; to those tools.&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;formatter
+&lt;ol&gt;
+&lt;li&gt;use &lt;code&gt;conform.nvim&lt;&#x2F;code&gt; which is provided as part of Kickstart.
+&lt;ol&gt;
+&lt;li&gt;locate it in &lt;code&gt;mason.lua&lt;&#x2F;code&gt; (at current time of writing)&lt;&#x2F;li&gt;
+&lt;li&gt;add to the &lt;code&gt;formatter_by_ft&lt;&#x2F;code&gt; configuration:
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;gdscript = { &#x27;gdformat&#x27; }&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Now you can format &lt;code&gt;gdscript&lt;&#x2F;code&gt; in &lt;code&gt;neovim&lt;&#x2F;code&gt; with &lt;code&gt;&amp;lt;leader&amp;gt; + f&lt;&#x2F;code&gt; in &lt;code&gt;neovim&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;lint
+&lt;ol&gt;
+&lt;li&gt;Kickstart provides a linter to display lint messages inline already, but it doesn&#x27;t install&#x2F;enable it by default.
+&lt;ol&gt;
+&lt;li&gt;It&#x27;s config is located in &lt;code&gt;&#x2F;kickstart&#x2F;plugins&#x2F;lint.lua&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;To install&#x2F;enable:
+&lt;ol&gt;
+&lt;li&gt;navigate to &lt;code&gt;lazy.lua&lt;&#x2F;code&gt; and find the commented out &lt;code&gt;require &#x27;kickstart.plugins.lint&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;uncomment it to install it&#x2F;enable it&lt;&#x2F;li&gt;
+&lt;li&gt;in the &lt;code&gt;lint.lua&lt;&#x2F;code&gt; file, observe that you need add the linter per language&lt;&#x2F;li&gt;
+&lt;li&gt;so, add gdscript linter like below and you&#x27;re done:&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;lint.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;linters_by_ft&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;	markdown&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span&gt; { &lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;&amp;#39;markdownlint&amp;#39; &lt;&#x2F;span&gt;&lt;span&gt;},&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;	gdscript&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span&gt; { &lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;&amp;#39;gdlint&amp;#39; &lt;&#x2F;span&gt;&lt;span&gt;},&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;	```&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;You may find it annoying that the inline linter&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt;&#x2F;&lt;&#x2F;span&gt;&lt;span&gt;formatter warnings overflow off the buffer making them unreadable. &lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;To address this, I added a keymap that opens a popover diagnostic window to display any of the warnings&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt;&#x2F;&lt;&#x2F;span&gt;&lt;span&gt;errors on the line that your cursor is on. Take a look at the custom keymappings&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; in&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; `init.lua`&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;```lua&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;vim.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;keymap&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;set&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;&amp;#39;n&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;&amp;#39;&amp;lt;leader&amp;gt;dd&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt;function&lt;&#x2F;span&gt;&lt;span&gt;()&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F97583;&quot;&gt;    return&lt;&#x2F;span&gt;&lt;span&gt; vim.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;diagnostic&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;open_float&lt;&#x2F;span&gt;&lt;span&gt;()&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F97583;&quot;&gt;end&lt;&#x2F;span&gt;&lt;span&gt;, { noremap&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt; true&lt;&#x2F;span&gt;&lt;span&gt;, silent&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt; true&lt;&#x2F;span&gt;&lt;span&gt;, desc&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; &amp;#39;Show diagnostic in popup&amp;#39; &lt;&#x2F;span&gt;&lt;span&gt;})&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;</content>
+        
+    </entry>
+</feed>

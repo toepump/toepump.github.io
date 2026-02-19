@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>toepump - music</title>
+    <subtitle>The personal web page of toepump, a developer and musician.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://toepump.github.io/tags/music/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://toepump.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-10-24T00:00:00+00:00</updated>
+    <id>https://toepump.github.io/tags/music/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Setting up rmpc (Rusty Music Player Client)</title>
+        <published>2025-10-24T00:00:00+00:00</published>
+        <updated>2025-10-24T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://toepump.github.io/posts/rmpc/"/>
+        <id>https://toepump.github.io/posts/rmpc/</id>
+        
+        <content type="html" xml:base="https://toepump.github.io/posts/rmpc/">&lt;p&gt;&lt;img src=&quot;&#x2F;images&#x2F;rmpc.png&quot; alt=&quot;my rmpc&quot; title=&quot;rmpc running&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;This guide is based on my experience following the official Arch &lt;code&gt;mpd&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;rmpc&lt;&#x2F;code&gt; wikis and their respective official documentations.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;wiki.archlinux.org&#x2F;title&#x2F;Music_Player_Daemon#&quot;&gt;Arch Wiki&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;mpd.readthedocs.io&#x2F;en&#x2F;stable&#x2F;index.html&quot;&gt;mpd docs&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;mierak.github.io&#x2F;rmpc&#x2F;&quot;&gt;rmpc docs&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Dependencies needed: &lt;code&gt;mpd&lt;&#x2F;code&gt;, &lt;code&gt;rmpc&lt;&#x2F;code&gt;, (optional) &lt;code&gt;cava&lt;&#x2F;code&gt; for visualizer.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-is-rmpc&quot;&gt;What is rmpc?&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;mierak&#x2F;rmpc&quot;&gt;rmpc&lt;&#x2F;a&gt; is a:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Configurable, terminal based MPD Client with album art support via various terminal image protocols&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Me 😕 : Uh-huh... what&#x27;s MPD?&lt;&#x2F;p&gt;
+&lt;p&gt;Right, MPD is Music Player Daemon which is a server-side application for playing music.
+The only thing we need to know (re: the only thing I know) is that it&#x27;s a common backend driver for many GUI frontends, like the one we&#x27;re interested in: &lt;code&gt;rmpc&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;why-use-rmpc&quot;&gt;Why use &lt;code&gt;rmpc&lt;&#x2F;code&gt;?&lt;&#x2F;h2&gt;
+&lt;p&gt;For me there are 3 reasons:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Because it&#x27;s freakin&#x27; cool looking. Like, a Terminal UI to play music? Hell yeah!&lt;&#x2F;li&gt;
+&lt;li&gt;Because I miss the pre-streaming, pre-subscription era of music.
+&lt;ul&gt;
+&lt;li&gt;I miss having my &lt;em&gt;own&lt;&#x2F;em&gt; library that I care for and listen through over and over again. Streaming services have many benefits, but I like the idea of slowing down with my own library.&lt;&#x2F;li&gt;
+&lt;li&gt;I miss the days of CD Players and even iPods when you&#x27;d chose what music to take with you with intention.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;More practically, I was writing music for my game project. When I exported the song, I realized that I didn&#x27;t have something like iTunes to play it. I&#x27;ve gotten so used to the Apple ecosystem and just using streaming services exclusively, I didn&#x27;t realize how troublesome it has become to just have an .mp3 file and want to add it to a local library.
+&lt;ul&gt;
+&lt;li&gt;I do already have &lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;cider.sh&#x2F;&quot;&gt;Cider&lt;&#x2F;a&gt; as a frontend for Apple Music on Linux. But Apple does not provide support for uploading local files to the cloud through Linux (only MacOS and Windows).&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Enter &lt;code&gt;rmpc&lt;&#x2F;code&gt;...&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;mpd&quot;&gt;&lt;code&gt;mpd&lt;&#x2F;code&gt;&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;what-is-it&quot;&gt;What is it?&lt;&#x2F;h3&gt;
+&lt;p&gt;The first thing you need to do is install &lt;code&gt;mpd&lt;&#x2F;code&gt;.
+Remember this is the brain of the operation, it&#x27;s the backend.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;mpd&lt;&#x2F;code&gt; will take care of the things that music players take care of. Like:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;database creation and operation&lt;&#x2F;li&gt;
+&lt;li&gt;audio output and management&lt;&#x2F;li&gt;
+&lt;li&gt;running the audio server in the background&lt;&#x2F;li&gt;
+&lt;li&gt;etc.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;It can also be heavily configured. If you&#x27;re interested to learn about more advanaced configurations then visit the &lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;mpd.readthedocs.io&#x2F;en&#x2F;stable&#x2F;index.html&quot;&gt;webpage&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;For my purposes, &lt;code&gt;mpd&lt;&#x2F;code&gt; is only really needed at the most basic level - for just playing my local audio files and making them easy to organize, queue up, etc.
+So the configuration is actually very light 👍.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;installation&quot;&gt;Installation&lt;&#x2F;h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;For your specific Linux distro or package manager, I recommend visiting the actual &lt;code&gt;mpd&lt;&#x2F;code&gt; docs linked above. For me, I&#x27;m using Arch Linux.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;As an important note&lt;&#x2F;strong&gt;, I will be setting up &lt;code&gt;mpd&lt;&#x2F;code&gt; in the &quot;per-user&quot; mode which means that my configuration will be for me as a user as opposed to system-wide.
+This makes it easier to install because I don&#x27;t need to worry as much about permissions, and I can place my configuration in my usual user &lt;code&gt;~&#x2F;.config&lt;&#x2F;code&gt; directory.&lt;&#x2F;p&gt;
+&lt;p&gt;If you&#x27;re setting this up on something that needs to be system-wide or on a remote server, this guide should not be followed step-by-step.
+Instead, look for the analogous &quot;system-wide&quot; steps on the docs.&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Install &lt;code&gt;mpd&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;yay&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt; -S&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; mpd&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;Create a configuration directory for &lt;code&gt;mpd&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;mkdir&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt; -p&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; ~&#x2F;.config&#x2F;mpd&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;Grab the configuration example template and copy it into a new &lt;code&gt;mpd.conf&lt;&#x2F;code&gt; file.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;The example template is a mostly commented out file that explains all of the parameters and provides commented-out common defaults.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;cp&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; &#x2F;usr&#x2F;share&#x2F;doc&#x2F;mpd&#x2F;mpdconf.example ~&#x2F;.config&#x2F;mpd&#x2F;mpd.conf&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol start=&quot;4&quot;&gt;
+&lt;li&gt;Configure the &lt;code&gt;mpd.conf&lt;&#x2F;code&gt; file&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;There are many options.
+But in truth, to get things up and running for a local music library and player, you really don&#x27;t need to touch many of them.
+I recommend reading the comments in the example configuration file or the docs, but at the end of the day, here are the active lines in my config:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;# Where you want to keep your music files for mpd to watch&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;music_directory&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;		&amp;quot;~&#x2F;Music&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;# Where you want to keep your playlist files for mpd to save and load&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;playlist_directory&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;		&amp;quot;~&#x2F;Music&#x2F;playlists&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;# Where you want the mpd database file to be stored&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;db_file&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;			&amp;quot;~&#x2F;Music&#x2F;database&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;# The address to run mpd from (in this case localhost)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;bind_to_address&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;		&amp;quot;127.0.0.1&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;# Enables mpd to watch the above &amp;quot;music_directory&amp;quot; to automatically update&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;# If not enabled, you&amp;#39;d need to make sure to update via your client (rmpc)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;auto_update&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;	&amp;quot;yes&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;# This is one of the few parameters set by default in the example config&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;input&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;        plugin&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; &amp;quot;curl&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;#       proxy &amp;quot;proxy.isp.com:8080&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;#       proxy_user &amp;quot;user&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;#       proxy_password &amp;quot;password&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;# Here you&amp;#39;d need to make sure you use YOUR audio server.&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;# To do so, run `inxi -A` and check.&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;audio_output&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;	type&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;		&amp;quot;pipewire&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;	name&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;		&amp;quot;PipeWire Sound Server&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;That&#x27;s it!
+Then to run &lt;code&gt;mpd&lt;&#x2F;code&gt; in &lt;strong&gt;user mode&lt;&#x2F;strong&gt;, do:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;systemctl&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt; --user&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; start mpd&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;It&#x27;s important to run in &lt;strong&gt;user mode&lt;&#x2F;strong&gt; as it means you won&#x27;t run into permissions issues.&lt;&#x2F;p&gt;
+&lt;p&gt;Confirm that it&#x27;s running with:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;systemctl&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt; --user&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; status mpd&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;rmpc&quot;&gt;&lt;code&gt;rmpc&lt;&#x2F;code&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;rmpc&lt;&#x2F;code&gt; is pretty straightforward to set up.&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Install &lt;code&gt;rmpc&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;yay&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt; -S&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; rmpc&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;Configure &lt;code&gt;rmpc&lt;&#x2F;code&gt; with the bootstrapping config command.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;# If the rmpc directory doesn&amp;#39;t exist you may need to create it&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;rmpc&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; config&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; &amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; ~.&#x2F;.config&#x2F;rmpc&#x2F;config.ron&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;In the config file, just ensure that your &lt;code&gt;address&lt;&#x2F;code&gt; parameter matches the address you configured for &lt;code&gt;mpd&lt;&#x2F;code&gt; so that &lt;code&gt;rmpc&lt;&#x2F;code&gt; can hook up to it.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;By default it uses &lt;code&gt;6600&lt;&#x2F;code&gt; port and the same localhost address we configured. So far I&#x27;ve not had any problems with this default.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;...&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;    address:&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; &amp;quot;127.0.0.1:6600&amp;quot;,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;...&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol start=&quot;4&quot;&gt;
+&lt;li&gt;Run &lt;code&gt;rmpc&lt;&#x2F;code&gt;!&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;rmpc&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;post-installation&quot;&gt;Post Installation&lt;&#x2F;h2&gt;
+&lt;p&gt;Now that you should have &lt;code&gt;mpd&lt;&#x2F;code&gt; powering a nice &lt;code&gt;rmpc&lt;&#x2F;code&gt; frontend, you just need to start adding music to your library and learning how to use &lt;code&gt;rmpc&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Adding music is as simple as copying your files in the directory you setup for your music files earlier.
+If they don&#x27;t show up right, then try doing &lt;code&gt;rmpc update&lt;&#x2F;code&gt;.
+You shouldn&#x27;t need to do this though as it should be automatically updating when you open &lt;code&gt;rmpc&lt;&#x2F;code&gt; due to the &lt;code&gt;mpd&lt;&#x2F;code&gt; configuration that you set earlier: &lt;code&gt;auto_update: &quot;yes&quot;&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;You can also try your hand at customizing the paneling, themes, etc. There are a lot ways to configure &lt;code&gt;rmpc&lt;&#x2F;code&gt;.
+You can go ahead and refer to my custom theme in my &lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;toepump&#x2F;dotfiles&quot;&gt;dotfiles&lt;&#x2F;a&gt; if it&#x27;s to your liking 😄!&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;images&#x2F;custom_rmpc.png&quot; alt=&quot;my customized rmpc&quot; title=&quot;my custom theme for rmpc&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;That&#x27;s it! Enjoy!&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

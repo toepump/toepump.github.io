@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="#ffffff" name="theme-color" />
+        <meta content="#da532c" name="msapplication-TileColor" />
+        
+        
+        
+            <link href='&#x2F;images&#x2F;avatar.png'
+                  rel="icon"
+                  sizes="16x16"
+                  type="image/png" />
+        
+        
+            <link href='&#x2F;images&#x2F;avatar.png'
+                  rel="icon"
+                  sizes="32x32"
+                  type="image/png" />
+        
+        
+        
+        
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1.9.1/css/academicons.min.css"
+              integrity="sha384-FIue+PI4SsI9XfHCz8dBLg33b0c1fMJgNU3X//L26FYbGnlSEfWmNT7zgWc2N9b6"
+              crossorigin="anonymous">
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"
+              integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k="
+              crossorigin="anonymous">
+        <link href="https://toepump.github.io/deep-thought.css" rel="stylesheet" />
+        
+        <title>
+            
+toepump | My Godot and Neovim Setup
+
+        </title>
+        
+            
+        
+        
+    </head>
+    <body class="has-background-white">
+        <nav aria-label="section navigation"
+             class="navbar is-light"
+             role="navigation">
+            <div class="container">
+                <div class="navbar-brand">
+                    <a class="navbar-item is-size-5 has-text-weight-bold"
+                       href="https:&#x2F;&#x2F;toepump.github.io">toepump</a>
+                    <a aria-expanded="false"
+                       aria-label="menu"
+                       class="navbar-burger burger"
+                       data-target="navMenu"
+                       role="button">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                <div class="navbar-menu" id="navMenu">
+                    <div class="navbar-end has-text-centered">
+                        
+                            
+                                
+                                    <a class="navbar-item has-text-weight-semibold"
+                                       href="https:&#x2F;&#x2F;toepump.github.io&#x2F;">
+                                        Home
+                                    </a>
+                                
+                                    <a class="navbar-item has-text-weight-semibold"
+                                       href="https:&#x2F;&#x2F;toepump.github.io&#x2F;posts">
+                                        Posts
+                                    </a>
+                                
+                                    <a class="navbar-item has-text-weight-semibold"
+                                       href="https:&#x2F;&#x2F;toepump.github.io&#x2F;tags">
+                                        Tags
+                                    </a>
+                                
+                            
+                        
+                        <a class="navbar-item"
+                           id="nav-search"
+                           title="Search"
+                           data-target="#search-modal">
+                            <span class="icon">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </a>
+                        <a class="navbar-item" id="dark-mode" title="Switch to dark theme">
+                            <span class="icon">
+                                <i class="fas fa-adjust"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-8 is-offset-2">
+        <article class="box">
+          <h1 class="title">
+            My Godot and Neovim Setup
+          </h1>
+          <p class="subtitle">How I setup Godot Engine to work seamlessly with Neovim as an external editor.</p>
+          <div class="columns is-multiline is-gapless">
+            <div class="column is-8">
+              
+<span class="icon-text has-text-grey">
+  <span class="icon">
+    <i class="fas fa-user"></i>
+  </span>
+  <span>toepump published on</span>
+  <span class="icon">
+    <i class="far fa-calendar-alt"></i>
+  </span>
+  <span><time datetime="2025-10-10">October 10, 2025</time></span>
+</span>
+
+            </div>
+            <div class="column is-4 has-text-right-desktop">
+              
+<span class="icon-text has-text-grey">
+  <span class="icon">
+    <i class="far fa-clock"></i>
+  </span>
+  <span>6 min,</span>
+  <span class="icon">
+    <i class="fas fa-pencil-alt"></i>
+  </span>
+  <span>1009 words</span>
+</span>
+
+            </div>
+            <div class="column">
+              
+            </div>
+            <div class="column has-text-right-desktop">
+              
+              
+<p>
+  Tags:
+  
+  <a class="has-text-info-dark has-text-weight-semibold" href="https://toepump.github.io/tags/godot/">
+    <span class="icon-text">
+      <span class="icon">
+        <i class="fas fa-tag"></i>
+      </span>
+      <span>godot</span>
+    </span>
+  </a>
+  
+  <a class="has-text-info-dark has-text-weight-semibold" href="https://toepump.github.io/tags/neovim/">
+    <span class="icon-text">
+      <span class="icon">
+        <i class="fas fa-tag"></i>
+      </span>
+      <span>neovim</span>
+    </span>
+  </a>
+  
+  <a class="has-text-info-dark has-text-weight-semibold" href="https://toepump.github.io/tags/fish/">
+    <span class="icon-text">
+      <span class="icon">
+        <i class="fas fa-tag"></i>
+      </span>
+      <span>fish</span>
+    </span>
+  </a>
+  
+  <a class="has-text-info-dark has-text-weight-semibold" href="https://toepump.github.io/tags/ghostty/">
+    <span class="icon-text">
+      <span class="icon">
+        <i class="fas fa-tag"></i>
+      </span>
+      <span>ghostty</span>
+    </span>
+  </a>
+  
+  <a class="has-text-info-dark has-text-weight-semibold" href="https://toepump.github.io/tags/linux/">
+    <span class="icon-text">
+      <span class="icon">
+        <i class="fas fa-tag"></i>
+      </span>
+      <span>linux</span>
+    </span>
+  </a>
+  
+</p>
+
+              
+            </div>
+          </div>
+          <div class="content mt-2">
+            <h2 id="environment">Environment</h2>
+<table><thead><tr><th>Component Type</th><th>Component Value</th><th>Notes</th></tr></thead><tbody>
+<tr><td>Linux Distro</td><td><a rel="noopener external" target="_blank" href="https://endeavouros.com/">Endeavor OS (GNOME)</a></td><td>All of the linux packages mentioned in this document are native <code>pacman</code> packages (official maintained ones, not from AUR)</td></tr>
+<tr><td>Terminal Emulator</td><td><a rel="noopener external" target="_blank" href="https://ghostty.org/">Ghostty</a></td><td></td></tr>
+<tr><td>Shell</td><td><a rel="noopener external" target="_blank" href="https://fishshell.com/">Fish</a></td><td></td></tr>
+</tbody></table>
+<p>This article assumes an <code>nvim</code> setup based on Kickstart.Nvim.</p>
+<h2 id="goals">Goals</h2>
+<ol>
+<li>Open scripts that are clicked from Godot Engine in neovim</li>
+<li>Support LSP features for autocomplete, go-to references, etc.</li>
+<li>Godot Engine documentation references in neovim</li>
+<li>Formatting</li>
+<li>Linting</li>
+</ol>
+<p>tldr;</p>
+<p>Do mostly what Simon Dalvai did here: <a rel="noopener external" target="_blank" href="https://simondalvai.org/blog/godot-neovim/">Neovim As External Editor for Godot</a>
+But if you run into any issues (particularly if you're based on Kickstart.Nvim), then come back here take a look at my notes!</p>
+<p>I was unable to get it working without some further investigation.</p>
+<hr />
+<h2 id="problem-1-mason-lspconfig">Problem 1: mason-lspconfig</h2>
+<p>Kickstart sets you up with <code>mason-lspconfig</code> and encourages you to use it for setting up Language Server Protocols if possible.</p>
+<p><strong>I wasn't able to get the Godot lsp working via <code>mason-lspconfig</code>.</strong></p>
+<p>Why? Because <code>mason-lspconfig</code> does not have a pre-configuration mapping for <code>gdscript</code> language server.</p>
+<p><code>mason-lspconfig</code> is basically just a convenience which bridges the gap between <code>mason</code> and <code>nvim-lspconfig</code>. Their purposes are respectively:</p>
+<ol>
+<li><code>mason</code> - managing packages for lsp by downloading them and installing them</li>
+<li><code>nvim-lspconfig</code> - configuring and <em>enabling</em> these lsps for nvim to use</li>
+</ol>
+<p><code>mason-lspconfig</code> just makes it easier to do all of the above in one step for <em>supported language servers</em> (install, enable, configure). However, <code>gdscript</code> is <em>not</em> one of the supported languages.</p>
+<blockquote>
+<p>Now, Kickstart is a little misleading here as the <code>mason-config</code> setup lines have comments saying that you can do <code>:help lspconfig-all</code> to see all the pre-configured languages. If you do so, then <code>gdscript</code> actually does show up.</p>
+</blockquote>
+<p>However, this list is only describing the available <code>nvim-lspconfig</code> language servers. It has nothing to do with <code>mason-lspconfig</code> which, again, doesn't have a mapping from <code>mason</code> to <code>nvim-lspconfig</code>'s managed <code>gdscript</code> language server.</p>
+<p>If you do attempt to set up <code>gdscript</code> via <code>mason-lspconfig</code>, then you'll get an error saying that the <code>gdscript</code> package was not found.</p>
+<p><strong>Here is the key insight. Godot itself holds a language server and is expected to be running while you write gdscript code.</strong></p>
+<p>So, actually it sort of makes sense that the <code>mason-lspconfig</code> guys didn't bother with implementing a bridge to <code>nvim-lspconfig</code> for a language server that most people won't even install with <code>mason</code>. (See below Note: "But I didn't install gdscript with mason yet?")</p>
+<p>In other words, why create a convenient auto setup from <code>mason</code> to <code>nvim-lspconfig</code> for a language that nobody will, or should, install via <code>mason</code> in the first place. Just let Godot be the LSP.</p>
+<p>So, in the end, the thing to do is to assume that you will have a <code>gdscript</code> LSP server available (making <code>mason</code> redundant), and just configure <code>nvim-lspconfig</code> to make neovim aware of it (side stepping the need for <code>mason-lspconfig</code>):</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="lua"><span class="giallo-l"><span style="color: #6A737D;">--- kickstarts mason-lspconfig setup</span></span>
+<span class="giallo-l"><span style="color: #79B8FF;">require</span><span>(</span><span style="color: #9ECBFF;">&#39;mason-lspconfig&#39;</span><span>).</span><span style="color: #79B8FF;">setup</span><span> {</span></span>
+<span class="giallo-l"><span>	ensure_installed</span><span style="color: #F97583;"> =</span><span> {}, </span><span style="color: #6A737D;">-- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)</span></span>
+<span class="giallo-l"><span>	automatic_installation</span><span style="color: #F97583;"> =</span><span style="color: #79B8FF;"> false</span><span>,</span></span>
+<span class="giallo-l"><span>	handlers</span><span style="color: #F97583;"> =</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #F97583;">		function</span><span>(server_name)</span></span>
+<span class="giallo-l"><span style="color: #F97583;">			local</span><span> server</span><span style="color: #F97583;"> =</span><span> servers[server_name] </span><span style="color: #F97583;">or</span><span> {}</span></span>
+<span class="giallo-l"><span style="color: #79B8FF;">			print</span><span>(server_name)</span></span>
+<span class="giallo-l"><span style="color: #6A737D;">			-- This handles overriding only values explicitly passed</span></span>
+<span class="giallo-l"><span style="color: #6A737D;">			-- by the server configuration above. Useful when disabling</span></span>
+<span class="giallo-l"><span style="color: #6A737D;">			-- certain features of an LSP (for example, turning off formatting for ts_ls)</span></span>
+<span class="giallo-l"><span>			server.</span><span style="color: #B392F0;">capabilities</span><span style="color: #F97583;"> =</span><span> vim.</span><span style="color: #79B8FF;">tbl_deep_extend</span><span>(</span><span style="color: #9ECBFF;">&#39;force&#39;</span><span>, {}, capabilities, server.</span><span style="color: #B392F0;">capabilities</span><span style="color: #F97583;"> or</span><span> {})</span></span>
+<span class="giallo-l"><span style="color: #79B8FF;">			require</span><span>(</span><span style="color: #9ECBFF;">&#39;lspconfig&#39;</span><span>)[server_name].</span><span style="color: #79B8FF;">setup</span><span>(server)</span></span>
+<span class="giallo-l"><span style="color: #F97583;">		end</span><span>,</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6A737D;">-- LOOK HERE: standalone gdscript setup, separate from the other lsps which are configured via mason-lspconfig above</span></span>
+<span class="giallo-l"><span style="color: #79B8FF;">require</span><span>(</span><span style="color: #9ECBFF;">&#39;lspconfig&#39;</span><span>)[</span><span style="color: #9ECBFF;">&#39;gdscript&#39;</span><span>].</span><span style="color: #79B8FF;">setup</span><span> {</span></span>
+<span class="giallo-l"><span>	name</span><span style="color: #F97583;"> =</span><span style="color: #9ECBFF;"> &#39;godot&#39;</span><span>,</span></span>
+<span class="giallo-l"><span>	cmd</span><span style="color: #F97583;"> =</span><span> vim.</span><span style="color: #B392F0;">lsp</span><span>.</span><span style="color: #B392F0;">rpc</span><span>.</span><span style="color: #79B8FF;">connect</span><span>(</span><span style="color: #9ECBFF;">&#39;127.0.0.1&#39;</span><span>, </span><span style="color: #79B8FF;">6005</span><span>),</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>The above code says "hey I know an LSP exists already, so let's hook up neovim to it on the specified port."
+This makes sense because all we need is "hook up neovim," which as mentioned earlier, is the responsibility of <code>nvim-lspconfig</code>, not <code>mason</code> nor <code>mason-lspconfig</code>.</p>
+<p><strong>But I didn't install <code>gdscript</code> with <code>mason</code> yet?</strong></p>
+<p>Again, you actually don't need to. Usually, you'd need to install the LSP for your language either on it's own through <code>mason</code>, or with the convenient auto-setup via <code>mason-lspconfig</code>. But <code>gdscript</code> language server actually runs in the Godot Editor itself, so (1) you don't install it via <code>mason</code>, and (2) <code>mason-lspconfing</code> wouldn't even have a pre-config for you.
+You just need to have Godot running, and then the server is available if you hook up <code>nvim</code> to the godot Language Server port (as described in the article).</p>
+<hr />
+<h3 id="problem-2-opening-files-from-godot">Problem 2: opening files from Godot</h3>
+<p>You can follow the instruction on Simon Dalvai's blog post and it should work.
+However, one thing to note is that if you close <code>nvim</code> by closing the terminal emulator, it won't actually remove the <code>server-pipe</code> file that was created by the above command.</p>
+<p>You must close <code>nvim</code> explicitly with the <code>:q</code> command.</p>
+<p>If you forget, and you're left with a lingering <code>server.pipe</code> file, then you won't be able to open files from Godot. To workaround this, you can delete the <code>server.pipe</code> file and re-run nvim. So double check your project directory if you're unable to open the files from godot in neovim.</p>
+<hr />
+<h3 id="problem-3-formatting-and-linting">Problem 3: Formatting and Linting</h3>
+<p>I mentioned before that <code>mason-lspconfig</code> does not know what <code>gdscript</code> is. This is true.
+However, it DOES know what <code>gdtoolkit</code> is.</p>
+<p><code>gdtoolkit</code> is simply a library that provides a <em>formatter</em> and a <em>linter</em>. <code>mason-lspconfig</code> can indeed install this via the super simple <code>gdtoolkit = {}</code> line similar to <code>ts_ls = {}</code>.</p>
+<p>However, for this to be usable you need to hook up your <code>nvim</code> to those tools.</p>
+<ol>
+<li>formatter
+<ol>
+<li>use <code>conform.nvim</code> which is provided as part of Kickstart.
+<ol>
+<li>locate it in <code>mason.lua</code> (at current time of writing)</li>
+<li>add to the <code>formatter_by_ft</code> configuration:
+<ol>
+<li><code>gdscript = { 'gdformat' }</code></li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Now you can format <code>gdscript</code> in <code>neovim</code> with <code>&lt;leader&gt; + f</code> in <code>neovim</code></li>
+</ol>
+</li>
+<li>lint
+<ol>
+<li>Kickstart provides a linter to display lint messages inline already, but it doesn't install/enable it by default.
+<ol>
+<li>It's config is located in <code>/kickstart/plugins/lint.lua</code></li>
+</ol>
+</li>
+<li>To install/enable:
+<ol>
+<li>navigate to <code>lazy.lua</code> and find the commented out <code>require 'kickstart.plugins.lint</code></li>
+<li>uncomment it to install it/enable it</li>
+<li>in the <code>lint.lua</code> file, observe that you need add the linter per language</li>
+<li>so, add gdscript linter like below and you're done:</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="lua"><span class="giallo-l"><span>lint.</span><span style="color: #B392F0;">linters_by_ft</span><span style="color: #F97583;"> =</span><span> {</span></span>
+<span class="giallo-l"><span>	markdown</span><span style="color: #F97583;"> =</span><span> { </span><span style="color: #9ECBFF;">&#39;markdownlint&#39; </span><span>},</span></span>
+<span class="giallo-l"><span>	gdscript</span><span style="color: #F97583;"> =</span><span> { </span><span style="color: #9ECBFF;">&#39;gdlint&#39; </span><span>},</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"><span style="color: #9ECBFF;">	```</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>You may find it annoying that the inline linter</span><span style="color: #F97583;">/</span><span>formatter warnings overflow off the buffer making them unreadable. </span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>To address this, I added a keymap that opens a popover diagnostic window to display any of the warnings</span><span style="color: #F97583;">/</span><span>errors on the line that your cursor is on. Take a look at the custom keymappings</span><span style="color: #F97583;"> in</span><span style="color: #9ECBFF;"> `init.lua`</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #9ECBFF;">```lua</span></span>
+<span class="giallo-l"><span>vim.</span><span style="color: #B392F0;">keymap</span><span>.</span><span style="color: #79B8FF;">set</span><span>(</span><span style="color: #9ECBFF;">&#39;n&#39;</span><span>, </span><span style="color: #9ECBFF;">&#39;&lt;leader&gt;dd&#39;</span><span>, </span><span style="color: #F97583;">function</span><span>()</span></span>
+<span class="giallo-l"><span style="color: #F97583;">    return</span><span> vim.</span><span style="color: #B392F0;">diagnostic</span><span>.</span><span style="color: #79B8FF;">open_float</span><span>()</span></span>
+<span class="giallo-l"><span style="color: #F97583;">end</span><span>, { noremap</span><span style="color: #F97583;"> =</span><span style="color: #79B8FF;"> true</span><span>, silent</span><span style="color: #F97583;"> =</span><span style="color: #79B8FF;"> true</span><span>, desc</span><span style="color: #F97583;"> =</span><span style="color: #9ECBFF;"> &#39;Show diagnostic in popup&#39; </span><span>})</span></span></code></pre>
+          </div>
+        </article>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+        
+            <section class="modal" id="search-modal">
+                <div class="modal-background"></div>
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">Search</p>
+                    </header>
+                    <section class="modal-card-body">
+                        <div class="field mb-2">
+                            <div class="control">
+                                <input class="input"
+                                       id="search"
+                                       placeholder="Search this website."
+                                       type="search" />
+                            </div>
+                        </div>
+                        <div class="search-results">
+                            <div class="search-results__items"></div>
+                        </div>
+                    </section>
+                </div>
+                <button aria-label="close" class="modal-close is-large"></button>
+            </section>
+        
+        
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <nav class="level">
+               
+          <div class="level-item has-text-centered">
+            <a class="button is-black is-outlined" href="https:&#x2F;&#x2F;toepump.github.io&#x2F;posts&#x2F;rmpc&#x2F;">
+              Setting up rmpc (Rusty Music Player Client)<span class="icon ml-2">
+                <i class="fas fa-arrow-circle-right"></i>
+              </span>
+            </a>
+          </div>
+          
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+        
+
+
+        
+    <!-- <footer class="footer py-4"> -->
+    <!--     <div class="content has-text-centered"> -->
+    <!--         <p> -->
+    <!--             Built with -->
+    <!--             <span class="icon-text"> -->
+    <!--                 <span class="icon"> -->
+    <!--                     <i class="fas fa-code"></i> -->
+    <!--                 </span> -->
+    <!--                 <span>code</span> -->
+    <!--             </span> -->
+    <!--             and -->
+    <!--             <span class="icon-text"> -->
+    <!--                 <span class="icon"> -->
+    <!--                     <i class="fas fa-heart"></i> -->
+    <!--                 </span> -->
+    <!--                 <span>blood</span> -->
+    <!--             </span> -->
+    <!--         </p> -->
+    <!--     </div> -->
+    <!-- </footer> -->
+
+        
+        
+        
+            <script src="https://cdn.jsdelivr.net/npm/chart.xkcd@1.1.13/dist/chart.xkcd.min.js"
+                    integrity="sha384-xC3h1+IHXK8seA+8KfT79Z4e0GPsznjXBoMa5nd8ooWKplPyXx92NOmljWxLC/cs"
+                    crossorigin="anonymous"></script>
+        
+        
+        <script src="https://toepump.github.io/elasticlunr.min.js"></script>
+        <script src="https://toepump.github.io/search_index.en.js"></script><script src="https://toepump.github.io/js/site.js"></script>
+        
+
+
+
+
+        
+        
+    </body>
+</html>

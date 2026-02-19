@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>toepump - ghostty</title>
+    <subtitle>The personal web page of toepump, a developer and musician.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://toepump.github.io/tags/ghostty/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://toepump.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-10-10T00:00:00+00:00</updated>
+    <id>https://toepump.github.io/tags/ghostty/atom.xml</id>
+    <entry xml:lang="en">
+        <title>My Godot and Neovim Setup</title>
+        <published>2025-10-10T00:00:00+00:00</published>
+        <updated>2025-10-10T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://toepump.github.io/posts/godot-neovim-integration/"/>
+        <id>https://toepump.github.io/posts/godot-neovim-integration/</id>
+        
+        <content type="html" xml:base="https://toepump.github.io/posts/godot-neovim-integration/">&lt;h2 id=&quot;environment&quot;&gt;Environment&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Component Type&lt;&#x2F;th&gt;&lt;th&gt;Component Value&lt;&#x2F;th&gt;&lt;th&gt;Notes&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Linux Distro&lt;&#x2F;td&gt;&lt;td&gt;&lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;endeavouros.com&#x2F;&quot;&gt;Endeavor OS (GNOME)&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;&lt;td&gt;All of the linux packages mentioned in this document are native &lt;code&gt;pacman&lt;&#x2F;code&gt; packages (official maintained ones, not from AUR)&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;Terminal Emulator&lt;&#x2F;td&gt;&lt;td&gt;&lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;ghostty.org&#x2F;&quot;&gt;Ghostty&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;Shell&lt;&#x2F;td&gt;&lt;td&gt;&lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;fishshell.com&#x2F;&quot;&gt;Fish&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;This article assumes an &lt;code&gt;nvim&lt;&#x2F;code&gt; setup based on Kickstart.Nvim.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;goals&quot;&gt;Goals&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Open scripts that are clicked from Godot Engine in neovim&lt;&#x2F;li&gt;
+&lt;li&gt;Support LSP features for autocomplete, go-to references, etc.&lt;&#x2F;li&gt;
+&lt;li&gt;Godot Engine documentation references in neovim&lt;&#x2F;li&gt;
+&lt;li&gt;Formatting&lt;&#x2F;li&gt;
+&lt;li&gt;Linting&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;tldr;&lt;&#x2F;p&gt;
+&lt;p&gt;Do mostly what Simon Dalvai did here: &lt;a rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;simondalvai.org&#x2F;blog&#x2F;godot-neovim&#x2F;&quot;&gt;Neovim As External Editor for Godot&lt;&#x2F;a&gt;
+But if you run into any issues (particularly if you&#x27;re based on Kickstart.Nvim), then come back here take a look at my notes!&lt;&#x2F;p&gt;
+&lt;p&gt;I was unable to get it working without some further investigation.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;problem-1-mason-lspconfig&quot;&gt;Problem 1: mason-lspconfig&lt;&#x2F;h2&gt;
+&lt;p&gt;Kickstart sets you up with &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt; and encourages you to use it for setting up Language Server Protocols if possible.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;I wasn&#x27;t able to get the Godot lsp working via &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt;.&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Why? Because &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt; does not have a pre-configuration mapping for &lt;code&gt;gdscript&lt;&#x2F;code&gt; language server.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt; is basically just a convenience which bridges the gap between &lt;code&gt;mason&lt;&#x2F;code&gt; and &lt;code&gt;nvim-lspconfig&lt;&#x2F;code&gt;. Their purposes are respectively:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;mason&lt;&#x2F;code&gt; - managing packages for lsp by downloading them and installing them&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;nvim-lspconfig&lt;&#x2F;code&gt; - configuring and &lt;em&gt;enabling&lt;&#x2F;em&gt; these lsps for nvim to use&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;&lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt; just makes it easier to do all of the above in one step for &lt;em&gt;supported language servers&lt;&#x2F;em&gt; (install, enable, configure). However, &lt;code&gt;gdscript&lt;&#x2F;code&gt; is &lt;em&gt;not&lt;&#x2F;em&gt; one of the supported languages.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Now, Kickstart is a little misleading here as the &lt;code&gt;mason-config&lt;&#x2F;code&gt; setup lines have comments saying that you can do &lt;code&gt;:help lspconfig-all&lt;&#x2F;code&gt; to see all the pre-configured languages. If you do so, then &lt;code&gt;gdscript&lt;&#x2F;code&gt; actually does show up.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;However, this list is only describing the available &lt;code&gt;nvim-lspconfig&lt;&#x2F;code&gt; language servers. It has nothing to do with &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt; which, again, doesn&#x27;t have a mapping from &lt;code&gt;mason&lt;&#x2F;code&gt; to &lt;code&gt;nvim-lspconfig&lt;&#x2F;code&gt;&#x27;s managed &lt;code&gt;gdscript&lt;&#x2F;code&gt; language server.&lt;&#x2F;p&gt;
+&lt;p&gt;If you do attempt to set up &lt;code&gt;gdscript&lt;&#x2F;code&gt; via &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt;, then you&#x27;ll get an error saying that the &lt;code&gt;gdscript&lt;&#x2F;code&gt; package was not found.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Here is the key insight. Godot itself holds a language server and is expected to be running while you write gdscript code.&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;So, actually it sort of makes sense that the &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt; guys didn&#x27;t bother with implementing a bridge to &lt;code&gt;nvim-lspconfig&lt;&#x2F;code&gt; for a language server that most people won&#x27;t even install with &lt;code&gt;mason&lt;&#x2F;code&gt;. (See below Note: &quot;But I didn&#x27;t install gdscript with mason yet?&quot;)&lt;&#x2F;p&gt;
+&lt;p&gt;In other words, why create a convenient auto setup from &lt;code&gt;mason&lt;&#x2F;code&gt; to &lt;code&gt;nvim-lspconfig&lt;&#x2F;code&gt; for a language that nobody will, or should, install via &lt;code&gt;mason&lt;&#x2F;code&gt; in the first place. Just let Godot be the LSP.&lt;&#x2F;p&gt;
+&lt;p&gt;So, in the end, the thing to do is to assume that you will have a &lt;code&gt;gdscript&lt;&#x2F;code&gt; LSP server available (making &lt;code&gt;mason&lt;&#x2F;code&gt; redundant), and just configure &lt;code&gt;nvim-lspconfig&lt;&#x2F;code&gt; to make neovim aware of it (side stepping the need for &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt;):&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;--- kickstarts mason-lspconfig setup&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;require&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;&amp;#39;mason-lspconfig&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;).&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;setup&lt;&#x2F;span&gt;&lt;span&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;	ensure_installed&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span&gt; {}, &lt;&#x2F;span&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;-- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;	automatic_installation&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt; false&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;	handlers&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F97583;&quot;&gt;		function&lt;&#x2F;span&gt;&lt;span&gt;(server_name)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F97583;&quot;&gt;			local&lt;&#x2F;span&gt;&lt;span&gt; server&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span&gt; servers[server_name] &lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt;or&lt;&#x2F;span&gt;&lt;span&gt; {}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;			print&lt;&#x2F;span&gt;&lt;span&gt;(server_name)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;			-- This handles overriding only values explicitly passed&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;			-- by the server configuration above. Useful when disabling&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;			-- certain features of an LSP (for example, turning off formatting for ts_ls)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;			server.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;capabilities&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span&gt; vim.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;tbl_deep_extend&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;&amp;#39;force&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;, {}, capabilities, server.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;capabilities&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; or&lt;&#x2F;span&gt;&lt;span&gt; {})&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;			require&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;&amp;#39;lspconfig&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;)[server_name].&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;setup&lt;&#x2F;span&gt;&lt;span&gt;(server)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F97583;&quot;&gt;		end&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A737D;&quot;&gt;-- LOOK HERE: standalone gdscript setup, separate from the other lsps which are configured via mason-lspconfig above&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;require&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;&amp;#39;lspconfig&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;)[&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;&amp;#39;gdscript&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;].&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;setup&lt;&#x2F;span&gt;&lt;span&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;	name&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; &amp;#39;godot&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;	cmd&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span&gt; vim.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;lsp&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;rpc&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;connect&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;&amp;#39;127.0.0.1&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;6005&lt;&#x2F;span&gt;&lt;span&gt;),&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The above code says &quot;hey I know an LSP exists already, so let&#x27;s hook up neovim to it on the specified port.&quot;
+This makes sense because all we need is &quot;hook up neovim,&quot; which as mentioned earlier, is the responsibility of &lt;code&gt;nvim-lspconfig&lt;&#x2F;code&gt;, not &lt;code&gt;mason&lt;&#x2F;code&gt; nor &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;But I didn&#x27;t install &lt;code&gt;gdscript&lt;&#x2F;code&gt; with &lt;code&gt;mason&lt;&#x2F;code&gt; yet?&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Again, you actually don&#x27;t need to. Usually, you&#x27;d need to install the LSP for your language either on it&#x27;s own through &lt;code&gt;mason&lt;&#x2F;code&gt;, or with the convenient auto-setup via &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt;. But &lt;code&gt;gdscript&lt;&#x2F;code&gt; language server actually runs in the Godot Editor itself, so (1) you don&#x27;t install it via &lt;code&gt;mason&lt;&#x2F;code&gt;, and (2) &lt;code&gt;mason-lspconfing&lt;&#x2F;code&gt; wouldn&#x27;t even have a pre-config for you.
+You just need to have Godot running, and then the server is available if you hook up &lt;code&gt;nvim&lt;&#x2F;code&gt; to the godot Language Server port (as described in the article).&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h3 id=&quot;problem-2-opening-files-from-godot&quot;&gt;Problem 2: opening files from Godot&lt;&#x2F;h3&gt;
+&lt;p&gt;You can follow the instruction on Simon Dalvai&#x27;s blog post and it should work.
+However, one thing to note is that if you close &lt;code&gt;nvim&lt;&#x2F;code&gt; by closing the terminal emulator, it won&#x27;t actually remove the &lt;code&gt;server-pipe&lt;&#x2F;code&gt; file that was created by the above command.&lt;&#x2F;p&gt;
+&lt;p&gt;You must close &lt;code&gt;nvim&lt;&#x2F;code&gt; explicitly with the &lt;code&gt;:q&lt;&#x2F;code&gt; command.&lt;&#x2F;p&gt;
+&lt;p&gt;If you forget, and you&#x27;re left with a lingering &lt;code&gt;server.pipe&lt;&#x2F;code&gt; file, then you won&#x27;t be able to open files from Godot. To workaround this, you can delete the &lt;code&gt;server.pipe&lt;&#x2F;code&gt; file and re-run nvim. So double check your project directory if you&#x27;re unable to open the files from godot in neovim.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h3 id=&quot;problem-3-formatting-and-linting&quot;&gt;Problem 3: Formatting and Linting&lt;&#x2F;h3&gt;
+&lt;p&gt;I mentioned before that &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt; does not know what &lt;code&gt;gdscript&lt;&#x2F;code&gt; is. This is true.
+However, it DOES know what &lt;code&gt;gdtoolkit&lt;&#x2F;code&gt; is.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;gdtoolkit&lt;&#x2F;code&gt; is simply a library that provides a &lt;em&gt;formatter&lt;&#x2F;em&gt; and a &lt;em&gt;linter&lt;&#x2F;em&gt;. &lt;code&gt;mason-lspconfig&lt;&#x2F;code&gt; can indeed install this via the super simple &lt;code&gt;gdtoolkit = {}&lt;&#x2F;code&gt; line similar to &lt;code&gt;ts_ls = {}&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;However, for this to be usable you need to hook up your &lt;code&gt;nvim&lt;&#x2F;code&gt; to those tools.&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;formatter
+&lt;ol&gt;
+&lt;li&gt;use &lt;code&gt;conform.nvim&lt;&#x2F;code&gt; which is provided as part of Kickstart.
+&lt;ol&gt;
+&lt;li&gt;locate it in &lt;code&gt;mason.lua&lt;&#x2F;code&gt; (at current time of writing)&lt;&#x2F;li&gt;
+&lt;li&gt;add to the &lt;code&gt;formatter_by_ft&lt;&#x2F;code&gt; configuration:
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;gdscript = { &#x27;gdformat&#x27; }&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Now you can format &lt;code&gt;gdscript&lt;&#x2F;code&gt; in &lt;code&gt;neovim&lt;&#x2F;code&gt; with &lt;code&gt;&amp;lt;leader&amp;gt; + f&lt;&#x2F;code&gt; in &lt;code&gt;neovim&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;lint
+&lt;ol&gt;
+&lt;li&gt;Kickstart provides a linter to display lint messages inline already, but it doesn&#x27;t install&#x2F;enable it by default.
+&lt;ol&gt;
+&lt;li&gt;It&#x27;s config is located in &lt;code&gt;&#x2F;kickstart&#x2F;plugins&#x2F;lint.lua&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;To install&#x2F;enable:
+&lt;ol&gt;
+&lt;li&gt;navigate to &lt;code&gt;lazy.lua&lt;&#x2F;code&gt; and find the commented out &lt;code&gt;require &#x27;kickstart.plugins.lint&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;uncomment it to install it&#x2F;enable it&lt;&#x2F;li&gt;
+&lt;li&gt;in the &lt;code&gt;lint.lua&lt;&#x2F;code&gt; file, observe that you need add the linter per language&lt;&#x2F;li&gt;
+&lt;li&gt;so, add gdscript linter like below and you&#x27;re done:&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;lint.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;linters_by_ft&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;	markdown&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span&gt; { &lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;&amp;#39;markdownlint&amp;#39; &lt;&#x2F;span&gt;&lt;span&gt;},&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;	gdscript&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span&gt; { &lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;&amp;#39;gdlint&amp;#39; &lt;&#x2F;span&gt;&lt;span&gt;},&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;	```&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;You may find it annoying that the inline linter&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt;&#x2F;&lt;&#x2F;span&gt;&lt;span&gt;formatter warnings overflow off the buffer making them unreadable. &lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;To address this, I added a keymap that opens a popover diagnostic window to display any of the warnings&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt;&#x2F;&lt;&#x2F;span&gt;&lt;span&gt;errors on the line that your cursor is on. Take a look at the custom keymappings&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; in&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; `init.lua`&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;```lua&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;vim.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;keymap&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;set&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;&amp;#39;n&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt;&amp;#39;&amp;lt;leader&amp;gt;dd&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt;function&lt;&#x2F;span&gt;&lt;span&gt;()&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F97583;&quot;&gt;    return&lt;&#x2F;span&gt;&lt;span&gt; vim.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;diagnostic&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt;open_float&lt;&#x2F;span&gt;&lt;span&gt;()&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F97583;&quot;&gt;end&lt;&#x2F;span&gt;&lt;span&gt;, { noremap&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt; true&lt;&#x2F;span&gt;&lt;span&gt;, silent&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt; true&lt;&#x2F;span&gt;&lt;span&gt;, desc&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; &amp;#39;Show diagnostic in popup&amp;#39; &lt;&#x2F;span&gt;&lt;span&gt;})&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;</content>
+        
+    </entry>
+</feed>

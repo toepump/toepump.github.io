@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="#ffffff" name="theme-color" />
+        <meta content="#da532c" name="msapplication-TileColor" />
+        
+        
+        
+            <link href='&#x2F;images&#x2F;avatar.png'
+                  rel="icon"
+                  sizes="16x16"
+                  type="image/png" />
+        
+        
+            <link href='&#x2F;images&#x2F;avatar.png'
+                  rel="icon"
+                  sizes="32x32"
+                  type="image/png" />
+        
+        
+        
+        
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1.9.1/css/academicons.min.css"
+              integrity="sha384-FIue+PI4SsI9XfHCz8dBLg33b0c1fMJgNU3X//L26FYbGnlSEfWmNT7zgWc2N9b6"
+              crossorigin="anonymous">
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"
+              integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k="
+              crossorigin="anonymous">
+        <link href="https://toepump.github.io/deep-thought.css" rel="stylesheet" />
+        
+        <title>
+            
+toepump | Setting up rmpc (Rusty Music Player Client)
+
+        </title>
+        
+            
+        
+        
+    </head>
+    <body class="has-background-white">
+        <nav aria-label="section navigation"
+             class="navbar is-light"
+             role="navigation">
+            <div class="container">
+                <div class="navbar-brand">
+                    <a class="navbar-item is-size-5 has-text-weight-bold"
+                       href="https:&#x2F;&#x2F;toepump.github.io">toepump</a>
+                    <a aria-expanded="false"
+                       aria-label="menu"
+                       class="navbar-burger burger"
+                       data-target="navMenu"
+                       role="button">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                <div class="navbar-menu" id="navMenu">
+                    <div class="navbar-end has-text-centered">
+                        
+                            
+                                
+                                    <a class="navbar-item has-text-weight-semibold"
+                                       href="https:&#x2F;&#x2F;toepump.github.io&#x2F;">
+                                        Home
+                                    </a>
+                                
+                                    <a class="navbar-item has-text-weight-semibold"
+                                       href="https:&#x2F;&#x2F;toepump.github.io&#x2F;posts">
+                                        Posts
+                                    </a>
+                                
+                                    <a class="navbar-item has-text-weight-semibold"
+                                       href="https:&#x2F;&#x2F;toepump.github.io&#x2F;tags">
+                                        Tags
+                                    </a>
+                                
+                            
+                        
+                        <a class="navbar-item"
+                           id="nav-search"
+                           title="Search"
+                           data-target="#search-modal">
+                            <span class="icon">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </a>
+                        <a class="navbar-item" id="dark-mode" title="Switch to dark theme">
+                            <span class="icon">
+                                <i class="fas fa-adjust"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-8 is-offset-2">
+        <article class="box">
+          <h1 class="title">
+            Setting up rmpc (Rusty Music Player Client)
+          </h1>
+          <p class="subtitle">How I setup rmpc and returned to the era of simple &amp; personal music library bliss.</p>
+          <div class="columns is-multiline is-gapless">
+            <div class="column is-8">
+              
+<span class="icon-text has-text-grey">
+  <span class="icon">
+    <i class="fas fa-user"></i>
+  </span>
+  <span>toepump published on</span>
+  <span class="icon">
+    <i class="far fa-calendar-alt"></i>
+  </span>
+  <span><time datetime="2025-10-24">October 24, 2025</time></span>
+</span>
+
+            </div>
+            <div class="column is-4 has-text-right-desktop">
+              
+<span class="icon-text has-text-grey">
+  <span class="icon">
+    <i class="far fa-clock"></i>
+  </span>
+  <span>5 min,</span>
+  <span class="icon">
+    <i class="fas fa-pencil-alt"></i>
+  </span>
+  <span>909 words</span>
+</span>
+
+            </div>
+            <div class="column">
+              
+            </div>
+            <div class="column has-text-right-desktop">
+              
+              
+<p>
+  Tags:
+  
+  <a class="has-text-info-dark has-text-weight-semibold" href="https://toepump.github.io/tags/linux/">
+    <span class="icon-text">
+      <span class="icon">
+        <i class="fas fa-tag"></i>
+      </span>
+      <span>linux</span>
+    </span>
+  </a>
+  
+  <a class="has-text-info-dark has-text-weight-semibold" href="https://toepump.github.io/tags/music/">
+    <span class="icon-text">
+      <span class="icon">
+        <i class="fas fa-tag"></i>
+      </span>
+      <span>music</span>
+    </span>
+  </a>
+  
+  <a class="has-text-info-dark has-text-weight-semibold" href="https://toepump.github.io/tags/terminal/">
+    <span class="icon-text">
+      <span class="icon">
+        <i class="fas fa-tag"></i>
+      </span>
+      <span>terminal</span>
+    </span>
+  </a>
+  
+</p>
+
+              
+            </div>
+          </div>
+          <div class="content mt-2">
+            <p><img src="/images/rmpc.png" alt="my rmpc" title="rmpc running" /></p>
+<p>This guide is based on my experience following the official Arch <code>mpd</code>/<code>rmpc</code> wikis and their respective official documentations.</p>
+<ul>
+<li><a rel="noopener external" target="_blank" href="https://wiki.archlinux.org/title/Music_Player_Daemon#">Arch Wiki</a></li>
+<li><a rel="noopener external" target="_blank" href="https://mpd.readthedocs.io/en/stable/index.html">mpd docs</a></li>
+<li><a rel="noopener external" target="_blank" href="https://mierak.github.io/rmpc/">rmpc docs</a></li>
+</ul>
+<p>Dependencies needed: <code>mpd</code>, <code>rmpc</code>, (optional) <code>cava</code> for visualizer.</p>
+<h2 id="what-is-rmpc">What is rmpc?</h2>
+<p><a rel="noopener external" target="_blank" href="https://github.com/mierak/rmpc">rmpc</a> is a:</p>
+<blockquote>
+<p>Configurable, terminal based MPD Client with album art support via various terminal image protocols</p>
+</blockquote>
+<p>Me 😕 : Uh-huh... what's MPD?</p>
+<p>Right, MPD is Music Player Daemon which is a server-side application for playing music.
+The only thing we need to know (re: the only thing I know) is that it's a common backend driver for many GUI frontends, like the one we're interested in: <code>rmpc</code>.</p>
+<h2 id="why-use-rmpc">Why use <code>rmpc</code>?</h2>
+<p>For me there are 3 reasons:</p>
+<ol>
+<li>Because it's freakin' cool looking. Like, a Terminal UI to play music? Hell yeah!</li>
+<li>Because I miss the pre-streaming, pre-subscription era of music.
+<ul>
+<li>I miss having my <em>own</em> library that I care for and listen through over and over again. Streaming services have many benefits, but I like the idea of slowing down with my own library.</li>
+<li>I miss the days of CD Players and even iPods when you'd chose what music to take with you with intention.</li>
+</ul>
+</li>
+<li>More practically, I was writing music for my game project. When I exported the song, I realized that I didn't have something like iTunes to play it. I've gotten so used to the Apple ecosystem and just using streaming services exclusively, I didn't realize how troublesome it has become to just have an .mp3 file and want to add it to a local library.
+<ul>
+<li>I do already have <a rel="noopener external" target="_blank" href="https://cider.sh/">Cider</a> as a frontend for Apple Music on Linux. But Apple does not provide support for uploading local files to the cloud through Linux (only MacOS and Windows).</li>
+</ul>
+</li>
+</ol>
+<p>Enter <code>rmpc</code>...</p>
+<hr />
+<h2 id="mpd"><code>mpd</code></h2>
+<h3 id="what-is-it">What is it?</h3>
+<p>The first thing you need to do is install <code>mpd</code>.
+Remember this is the brain of the operation, it's the backend.</p>
+<p><code>mpd</code> will take care of the things that music players take care of. Like:</p>
+<ul>
+<li>database creation and operation</li>
+<li>audio output and management</li>
+<li>running the audio server in the background</li>
+<li>etc.</li>
+</ul>
+<p>It can also be heavily configured. If you're interested to learn about more advanaced configurations then visit the <a rel="noopener external" target="_blank" href="https://mpd.readthedocs.io/en/stable/index.html">webpage</a>.</p>
+<p>For my purposes, <code>mpd</code> is only really needed at the most basic level - for just playing my local audio files and making them easy to organize, queue up, etc.
+So the configuration is actually very light 👍.</p>
+<h3 id="installation">Installation</h3>
+<blockquote>
+<p>For your specific Linux distro or package manager, I recommend visiting the actual <code>mpd</code> docs linked above. For me, I'm using Arch Linux.</p>
+</blockquote>
+<p><strong>As an important note</strong>, I will be setting up <code>mpd</code> in the "per-user" mode which means that my configuration will be for me as a user as opposed to system-wide.
+This makes it easier to install because I don't need to worry as much about permissions, and I can place my configuration in my usual user <code>~/.config</code> directory.</p>
+<p>If you're setting this up on something that needs to be system-wide or on a remote server, this guide should not be followed step-by-step.
+Instead, look for the analogous "system-wide" steps on the docs.</p>
+<ol>
+<li>Install <code>mpd</code></li>
+</ol>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #B392F0;">yay</span><span style="color: #79B8FF;"> -S</span><span style="color: #9ECBFF;"> mpd</span></span></code></pre>
+<ol start="2">
+<li>Create a configuration directory for <code>mpd</code></li>
+</ol>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #B392F0;">mkdir</span><span style="color: #79B8FF;"> -p</span><span style="color: #9ECBFF;"> ~/.config/mpd</span></span></code></pre>
+<ol start="3">
+<li>Grab the configuration example template and copy it into a new <code>mpd.conf</code> file.</li>
+</ol>
+<p>The example template is a mostly commented out file that explains all of the parameters and provides commented-out common defaults.</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #B392F0;">cp</span><span style="color: #9ECBFF;"> /usr/share/doc/mpd/mpdconf.example ~/.config/mpd/mpd.conf</span></span></code></pre>
+<ol start="4">
+<li>Configure the <code>mpd.conf</code> file</li>
+</ol>
+<p>There are many options.
+But in truth, to get things up and running for a local music library and player, you really don't need to touch many of them.
+I recommend reading the comments in the example configuration file or the docs, but at the end of the day, here are the active lines in my config:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #6A737D;"># Where you want to keep your music files for mpd to watch</span></span>
+<span class="giallo-l"><span style="color: #B392F0;">music_directory</span><span style="color: #9ECBFF;">		&quot;~/Music&quot;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6A737D;"># Where you want to keep your playlist files for mpd to save and load</span></span>
+<span class="giallo-l"><span style="color: #B392F0;">playlist_directory</span><span style="color: #9ECBFF;">		&quot;~/Music/playlists&quot;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6A737D;"># Where you want the mpd database file to be stored</span></span>
+<span class="giallo-l"><span style="color: #B392F0;">db_file</span><span style="color: #9ECBFF;">			&quot;~/Music/database&quot;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6A737D;"># The address to run mpd from (in this case localhost)</span></span>
+<span class="giallo-l"><span style="color: #B392F0;">bind_to_address</span><span style="color: #9ECBFF;">		&quot;127.0.0.1&quot;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6A737D;"># Enables mpd to watch the above &quot;music_directory&quot; to automatically update</span></span>
+<span class="giallo-l"><span style="color: #6A737D;"># If not enabled, you&#39;d need to make sure to update via your client (rmpc)</span></span>
+<span class="giallo-l"><span style="color: #B392F0;">auto_update</span><span style="color: #9ECBFF;">	&quot;yes&quot;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6A737D;"># This is one of the few parameters set by default in the example config</span></span>
+<span class="giallo-l"><span style="color: #B392F0;">input</span><span style="color: #9ECBFF;"> {</span></span>
+<span class="giallo-l"><span style="color: #B392F0;">        plugin</span><span style="color: #9ECBFF;"> &quot;curl&quot;</span></span>
+<span class="giallo-l"><span style="color: #6A737D;">#       proxy &quot;proxy.isp.com:8080&quot;</span></span>
+<span class="giallo-l"><span style="color: #6A737D;">#       proxy_user &quot;user&quot;</span></span>
+<span class="giallo-l"><span style="color: #6A737D;">#       proxy_password &quot;password&quot;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6A737D;"># Here you&#39;d need to make sure you use YOUR audio server.</span></span>
+<span class="giallo-l"><span style="color: #6A737D;"># To do so, run `inxi -A` and check.</span></span>
+<span class="giallo-l"><span style="color: #B392F0;">audio_output</span><span style="color: #9ECBFF;"> {</span></span>
+<span class="giallo-l"><span style="color: #79B8FF;">	type</span><span style="color: #9ECBFF;">		&quot;pipewire&quot;</span></span>
+<span class="giallo-l"><span style="color: #B392F0;">	name</span><span style="color: #9ECBFF;">		&quot;PipeWire Sound Server&quot;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>That's it!
+Then to run <code>mpd</code> in <strong>user mode</strong>, do:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #B392F0;">systemctl</span><span style="color: #79B8FF;"> --user</span><span style="color: #9ECBFF;"> start mpd</span></span></code></pre>
+<p>It's important to run in <strong>user mode</strong> as it means you won't run into permissions issues.</p>
+<p>Confirm that it's running with:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #B392F0;">systemctl</span><span style="color: #79B8FF;"> --user</span><span style="color: #9ECBFF;"> status mpd</span></span></code></pre><h3 id="rmpc"><code>rmpc</code></h3>
+<p><code>rmpc</code> is pretty straightforward to set up.</p>
+<ol>
+<li>Install <code>rmpc</code></li>
+</ol>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #B392F0;">yay</span><span style="color: #79B8FF;"> -S</span><span style="color: #9ECBFF;"> rmpc</span></span></code></pre>
+<ol start="2">
+<li>Configure <code>rmpc</code> with the bootstrapping config command.</li>
+</ol>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #6A737D;"># If the rmpc directory doesn&#39;t exist you may need to create it</span></span>
+<span class="giallo-l"><span style="color: #B392F0;">rmpc</span><span style="color: #9ECBFF;"> config</span><span style="color: #F97583;"> &gt;</span><span style="color: #9ECBFF;"> ~./.config/rmpc/config.ron</span></span></code></pre>
+<ol start="3">
+<li>In the config file, just ensure that your <code>address</code> parameter matches the address you configured for <code>mpd</code> so that <code>rmpc</code> can hook up to it.</li>
+</ol>
+<p>By default it uses <code>6600</code> port and the same localhost address we configured. So far I've not had any problems with this default.</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #79B8FF;">...</span></span>
+<span class="giallo-l"><span style="color: #B392F0;">    address:</span><span style="color: #9ECBFF;"> &quot;127.0.0.1:6600&quot;,</span></span>
+<span class="giallo-l"><span style="color: #79B8FF;">...</span></span></code></pre>
+<ol start="4">
+<li>Run <code>rmpc</code>!</li>
+</ol>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #B392F0;">rmpc</span></span></code></pre>
+<hr />
+<h2 id="post-installation">Post Installation</h2>
+<p>Now that you should have <code>mpd</code> powering a nice <code>rmpc</code> frontend, you just need to start adding music to your library and learning how to use <code>rmpc</code>.</p>
+<p>Adding music is as simple as copying your files in the directory you setup for your music files earlier.
+If they don't show up right, then try doing <code>rmpc update</code>.
+You shouldn't need to do this though as it should be automatically updating when you open <code>rmpc</code> due to the <code>mpd</code> configuration that you set earlier: <code>auto_update: "yes"</code>.</p>
+<p>You can also try your hand at customizing the paneling, themes, etc. There are a lot ways to configure <code>rmpc</code>.
+You can go ahead and refer to my custom theme in my <a rel="noopener external" target="_blank" href="https://github.com/toepump/dotfiles">dotfiles</a> if it's to your liking 😄!</p>
+<p><img src="/images/custom_rmpc.png" alt="my customized rmpc" title="my custom theme for rmpc" /></p>
+<p>That's it! Enjoy!</p>
+
+          </div>
+        </article>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+        
+            <section class="modal" id="search-modal">
+                <div class="modal-background"></div>
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">Search</p>
+                    </header>
+                    <section class="modal-card-body">
+                        <div class="field mb-2">
+                            <div class="control">
+                                <input class="input"
+                                       id="search"
+                                       placeholder="Search this website."
+                                       type="search" />
+                            </div>
+                        </div>
+                        <div class="search-results">
+                            <div class="search-results__items"></div>
+                        </div>
+                    </section>
+                </div>
+                <button aria-label="close" class="modal-close is-large"></button>
+            </section>
+        
+        
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <nav class="level">
+              
+          <div class="level-item has-text-centered">
+            <a class="button is-black is-outlined" href="https:&#x2F;&#x2F;toepump.github.io&#x2F;posts&#x2F;godot-neovim-integration&#x2F;">
+              <span class="icon mr-2">
+                <i class="fas fa-arrow-circle-left"></i>
+              </span>
+              My Godot and Neovim Setup
+            </a>
+          </div>
+           
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+        
+
+
+        
+    <!-- <footer class="footer py-4"> -->
+    <!--     <div class="content has-text-centered"> -->
+    <!--         <p> -->
+    <!--             Built with -->
+    <!--             <span class="icon-text"> -->
+    <!--                 <span class="icon"> -->
+    <!--                     <i class="fas fa-code"></i> -->
+    <!--                 </span> -->
+    <!--                 <span>code</span> -->
+    <!--             </span> -->
+    <!--             and -->
+    <!--             <span class="icon-text"> -->
+    <!--                 <span class="icon"> -->
+    <!--                     <i class="fas fa-heart"></i> -->
+    <!--                 </span> -->
+    <!--                 <span>blood</span> -->
+    <!--             </span> -->
+    <!--         </p> -->
+    <!--     </div> -->
+    <!-- </footer> -->
+
+        
+        
+        
+            <script src="https://cdn.jsdelivr.net/npm/chart.xkcd@1.1.13/dist/chart.xkcd.min.js"
+                    integrity="sha384-xC3h1+IHXK8seA+8KfT79Z4e0GPsznjXBoMa5nd8ooWKplPyXx92NOmljWxLC/cs"
+                    crossorigin="anonymous"></script>
+        
+        
+        <script src="https://toepump.github.io/elasticlunr.min.js"></script>
+        <script src="https://toepump.github.io/search_index.en.js"></script><script src="https://toepump.github.io/js/site.js"></script>
+        
+
+
+
+
+        
+        
+    </body>
+</html>
