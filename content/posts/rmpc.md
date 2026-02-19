@@ -95,7 +95,7 @@ There are many options.
 But in truth, to get things up and running for a local music library and player, you really don't need to touch many of them.
 I recommend reading the comments in the example configuration file or the docs, but at the end of the day, here are the active lines in my config:
 
-```conf
+```bash
 # Where you want to keep your music files for mpd to watch
 music_directory		"~/Music"
 
@@ -164,7 +164,7 @@ rmpc config > ~./.config/rmpc/config.ron
 
 By default it uses `6600` port and the same localhost address we configured. So far I've not had any problems with this default.
 
-```conf
+```bash
 ...
     address: "127.0.0.1:6600",
 ...
