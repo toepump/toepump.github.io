@@ -4,6 +4,9 @@ description = "How I setup rmpc and returned to the era of simple & personal mus
 date = 2025-10-24
 [taxonomies]
 tags = ["linux", "music", "terminal"]
+
+[extra]
+toc = true
 +++
 
 ![my rmpc](/images/rmpc.png "rmpc running")
@@ -15,7 +18,7 @@ This guide is based on my experience following the official Arch `mpd`/`rmpc` wi
 
 Dependencies needed: `mpd`, `rmpc`, (optional) `cava` for visualizer.
 
-## What is rmpc?
+# What is rmpc?
 
 [rmpc](https://github.com/mierak/rmpc) is a:
 
@@ -26,29 +29,30 @@ Me :confused: : Uh-huh... what's MPD?
 Right, MPD is Music Player Daemon which is a server-side application for playing music.
 The only thing we need to know (re: the only thing I know) is that it's a common backend driver for many GUI frontends, like the one we're interested in: `rmpc`.
 
-## Why use `rmpc`?
+# Why use `rmpc`?
 
 For me there are 3 reasons:
 
-1. Because it's freakin' cool looking. Like, a Terminal UI to play music? Hell yeah!
+1. Because it looks dope. A Terminal UI to play music? Hell yeah!
 2. Because I miss the pre-streaming, pre-subscription era of music.
-    - I miss having my _own_ library that I care for and listen through over and over again. Streaming services have many benefits, but I like the idea of slowing down with my own library.
+    - I miss having my _own_ library to be invested in and to listen through over and over again. Streaming services have many benefits, but I like the idea of slowing down with my own library.
     - I miss the days of CD Players and even iPods when you'd chose what music to take with you with intention.
 3. More practically, I was writing music for my game project. When I exported the song, I realized that I didn't have something like iTunes to play it. I've gotten so used to the Apple ecosystem and just using streaming services exclusively, I didn't realize how troublesome it has become to just have an .mp3 file and want to add it to a local library.
-    - I do already have [Cider](https://cider.sh/) as a frontend for Apple Music on Linux. But Apple does not provide support for uploading local files to the cloud through Linux (only MacOS and Windows).
+    - I do already have [Cider](https://cider.sh/) as a frontend for Apple Music on Linux. But Apple does not provide support for uploading local files to the cloud through Linux (only MacOS and Windows) as far as I can tell.
 
 Enter `rmpc`...
 
 ---
 
-## `mpd`
+# `mpd`
 
-### What is it?
+## What is it?
 
 The first thing you need to do is install `mpd`.
 Remember this is the brain of the operation, it's the backend.
 
-`mpd` will take care of the things that music players take care of. Like:
+`mpd` will take care of the things that music players take care of. 
+Like:
 - database creation and operation
 - audio output and management
 - running the audio server in the background
@@ -59,7 +63,7 @@ It can also be heavily configured. If you're interested to learn about more adva
 For my purposes, `mpd` is only really needed at the most basic level - for just playing my local audio files and making them easy to organize, queue up, etc.
 So the configuration is actually very light :thumbsup:.
 
-### Installation
+## Installation
 
 > For your specific Linux distro or package manager, I recommend visiting the actual `mpd` docs linked above. For me, I'm using Arch Linux.
 
@@ -178,7 +182,7 @@ rmpc
 
 ---
 
-## Post Installation
+# Post Installation
 
 Now that you should have `mpd` powering a nice `rmpc` frontend, you just need to start adding music to your library and learning how to use `rmpc`.
 

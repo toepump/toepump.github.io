@@ -37,6 +37,7 @@ theme = "github-dark"
 
 # Enable external libraries
 [extra]
+toc = true
 katex.enabled = false
 katex.auto_render = false
 
