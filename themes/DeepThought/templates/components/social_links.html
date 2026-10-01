@@ -1,4 +1,4 @@
-{% macro social_links(social_config) %}
+{% component social_links(social_config, @config) %}
 <p>
   {% if social_config.facebook %}
   <a class="has-text-facebook" href="https://facebook.com/{{ social_config.facebook }}" target="_blank">
@@ -65,12 +65,7 @@
   </a>
   {% endif %}
 
-  {# Certainly not the best implementation but Tera bombs if you try to access a nonexistent key #}
-  {% if social_config.mastodon_username %}
-    {% set mastodon_username = social_config.mastodon_username %}
-  {% elif social_config.mastodon %}
-    {% set mastodon_username = social_config.mastodon %}
-  {% endif %}
+  {% set mastodon_username = social_config.mastodon_username or social_config.mastodon or "" %}
   {% if mastodon_username %}
   <a class="has-text-mastodon" href="https://{{ social_config.mastodon_server | default(value='mastodon.social') }}/@{{ mastodon_username }}" target="_blank" rel="me">
     <span class="icon is-large" title="Mastodon">
@@ -191,70 +186,12 @@
   </a>
   {% endif %}
 
-  {% if config.generate_feed %}
-  <a class="has-text-rss" href="{{ config.base_url }}/{{ config.feed_filename }}" target="_blank">
+  {% if config.generate_feeds %}
+  <a class="has-text-rss" href="{{ config.base_url }}/{{ config.feed_filenames[0] }}" target="_blank">
     <span class="icon is-large" title="RSS Feed">
       <i class="fas fa-rss fa-lg"></i>
     </span>
   </a>
   {% endif %}
 </p>
-{% endmacro %}
-
-{% macro page_publish_metadata(page) %}
-<span class="icon-text has-text-grey">
-  <span class="icon">
-    <i class="fas fa-user"></i>
-  </span>
-  <span>{{ config.extra.author.name }} published on</span>
-  <span class="icon">
-    <i class="far fa-calendar-alt"></i>
-  </span>
-  <span><time datetime="{{ page.date }}">{{ page.date | date(format='%B %d, %Y') }}</time></span>
-</span>
-{% endmacro %}
-
-{% macro page_content_metadata(page) %}
-<span class="icon-text has-text-grey">
-  <span class="icon">
-    <i class="far fa-clock"></i>
-  </span>
-  <span>{{ page.reading_time }} min,</span>
-  <span class="icon">
-    <i class="fas fa-pencil-alt"></i>
-  </span>
-  <span>{{ page.word_count }} words</span>
-</span>
-{% endmacro %}
-
-{% macro render_categories(categories) %}
-<p>
-  Categories:
-  {% for category in categories %}
-  <a class="has-text-info-dark has-text-weight-semibold" href="{{ get_taxonomy_url(kind='categories', name=category) }}">
-    <span class="icon-text">
-      <span class="icon">
-        <i class="fas fa-cube"></i>
-      </span>
-      <span>{{category}}</span>
-    </span>
-  </a>
-  {% endfor %}
-</p>
-{% endmacro %}
-
-{% macro render_tags(tags) %}
-<p>
-  Tags:
-  {% for tag in tags %}
-  <a class="has-text-info-dark has-text-weight-semibold" href="{{ get_taxonomy_url(kind='tags', name=tag) }}">
-    <span class="icon-text">
-      <span class="icon">
-        <i class="fas fa-tag"></i>
-      </span>
-      <span>{{tag}}</span>
-    </span>
-  </a>
-  {% endfor %}
-</p>
-{% endmacro %}
+{% endcomponent social_links %}

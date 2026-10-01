@@ -1,3 +1,4 @@
+{% component mapbox(zoom, @config) %}
 <div class="map mb-6" style='height: 450px;'>
     <div class="mapbox-access-token">
         {{config.extra.mapbox.access_token}}
@@ -9,3 +10,4 @@
         {{body}}
     </div>
 </div>
+{% endcomponent mapbox %}
