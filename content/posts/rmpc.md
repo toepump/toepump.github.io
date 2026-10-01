@@ -65,7 +65,8 @@ So the configuration is actually very light :thumbsup:.
 
 ## Installation
 
-> For your specific Linux distro or package manager, I recommend visiting the actual `mpd` docs linked above. For me, I'm using Arch Linux.
+> [!NOTE] 
+> For your specific Linux distro or package manager, I recommend visiting the actual `mpd` docs linked above. For me, I'm using EndeavorOS with `yay`.
 
 **As an important note**, I will be setting up `mpd` in the "per-user" mode which means that my configuration will be for me as a user as opposed to system-wide.
 This makes it easier to install because I don't need to worry as much about permissions, and I can place my configuration in my usual user `~/.config` directory.

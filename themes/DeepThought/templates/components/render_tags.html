@@ -1,0 +1,15 @@
+{% component render_tags(tags) %}
+<p>
+  Tags:
+  {% for tag in tags %}
+  <a class="has-text-info-dark has-text-weight-semibold" href="{{ get_taxonomy_url(kind='tags', name=tag) }}">
+    <span class="icon-text">
+      <span class="icon">
+        <i class="fas fa-tag"></i>
+      </span>
+      <span>{{tag}}</span>
+    </span>
+  </a>
+  {% endfor %}
+</p>
+{% endcomponent render_tags %}

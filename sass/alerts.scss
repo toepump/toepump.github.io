@@ -1,0 +1,32 @@
+// Styles for GitHub-style callouts (`> [!NOTE]` etc.), which Zola renders as
+// <blockquote class="markdown-alert-*"> when `markdown.github_alerts` is on.
+// Colors are GitHub's light-mode palette; the theme's dark mode inverts them.
+
+$alerts: (
+  "note":      ("Note",      #0969da, "\f05a"),  // circle-info
+  "tip":       ("Tip",       #1a7f37, "\f0eb"),  // lightbulb
+  "important": ("Important", #8250df, "\f27a"),  // message
+  "warning":   ("Warning",   #9a6700, "\f071"),  // triangle-exclamation
+  "caution":   ("Caution",   #cf222e, "\f06a"),  // circle-exclamation
+);
+
+@each $type, $alert in $alerts {
+  $title: nth($alert, 1);
+  $color: nth($alert, 2);
+  $icon: nth($alert, 3);
+
+  .content blockquote.markdown-alert-#{$type} {
+    border-left-color: $color;
+
+    &::before {
+      content: "#{$icon}\00a0\00a0#{$title}";
+      display: block;
+      margin-bottom: 0.5em;
+      color: $color;
+      // Jost has no glyph for the icon codepoint, so the icon falls back to
+      // Font Awesome; its nearest face to 600 is the solid (900) one.
+      font-family: "Jost", "Font Awesome 6 Free", sans-serif;
+      font-weight: 600;
+    }
+  }
+}
