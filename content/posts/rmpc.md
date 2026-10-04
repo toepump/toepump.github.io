@@ -9,7 +9,7 @@ tags = ["linux", "music", "terminal"]
 toc = true
 +++
 
-![my rmpc](/images/rmpc.png "rmpc running")
+![my rmpc](/images/custom_rmpc.png "rmpc running")
 
 This guide is based on my experience following the official Arch `mpd`/`rmpc` wikis and their respective official documentations.
 - [Arch Wiki](https://wiki.archlinux.org/title/Music_Player_Daemon#)
@@ -37,7 +37,7 @@ For me there are 3 reasons:
 2. Because I miss the pre-streaming, pre-subscription era of music.
     - I miss having my _own_ library to be invested in and to listen through over and over again. Streaming services have many benefits, but I like the idea of slowing down with my own library.
     - I miss the days of CD Players and even iPods when you'd chose what music to take with you with intention.
-3. More practically, I was writing music for my game project. When I exported the song, I realized that I didn't have something like iTunes to play it. I've gotten so used to the Apple ecosystem and just using streaming services exclusively, I didn't realize how troublesome it has become to just have an .mp3 file and want to add it to a local library.
+3. More practically, I was writing music for my game project. When I exported the song, I realized that I didn't have something like iTunes to play it. I want to be able to simply move a music file into my library. I've gotten so used to using streaming services exclusively, that I didn't realize how troublesome it has become to just have an .mp3 file and want to add it to a local library.
     - I do already have [Cider](https://cider.sh/) as a frontend for Apple Music on Linux. But Apple does not provide support for uploading local files to the cloud through Linux (only MacOS and Windows) as far as I can tell.
 
 Enter `rmpc`...
@@ -51,7 +51,7 @@ Enter `rmpc`...
 The first thing you need to do is install `mpd`.
 Remember this is the brain of the operation, it's the backend.
 
-`mpd` will take care of the things that music players take care of. 
+`mpd` will take care of the things that music libraries and players take care of. 
 Like:
 - database creation and operation
 - audio output and management
@@ -102,34 +102,34 @@ I recommend reading the comments in the example configuration file or the docs, 
 
 ```bash
 # Where you want to keep your music files for mpd to watch
-music_directory		"~/Music"
+music_directory     "~/Music"
 
 # Where you want to keep your playlist files for mpd to save and load
-playlist_directory		"~/Music/playlists"
+playlist_directory  "~/Music/playlists"
 
 # Where you want the mpd database file to be stored
-db_file			"~/Music/database"
+db_file             "~/Music/database"
 
 # The address to run mpd from (in this case localhost)
-bind_to_address		"127.0.0.1"
+bind_to_address     "127.0.0.1"
 
 # Enables mpd to watch the above "music_directory" to automatically update
 # If not enabled, you'd need to make sure to update via your client (rmpc)
-auto_update	"yes"
+auto_update         "yes"
 
 # This is one of the few parameters set by default in the example config
 input {
-        plugin "curl"
-#       proxy "proxy.isp.com:8080"
-#       proxy_user "user"
-#       proxy_password "password"
+    plugin "curl"
+#   proxy "proxy.isp.com:8080"
+#   proxy_user "user"
+#   proxy_password "password"
 }
 
 # Here you'd need to make sure you use YOUR audio server.
 # To do so, run `inxi -A` and check.
 audio_output {
-	type		"pipewire"
-	name		"PipeWire Sound Server"
+    type    "pipewire"
+    name    "PipeWire Sound Server"
 }
 ```
 
@@ -148,6 +148,10 @@ Confirm that it's running with:
 systemctl --user status mpd
 ```
 
+<br/>
+
+> [!WARNING]
+> If you forget to include `--user`, then you will be checking for a system-wide `mpd`, which you never started. Therefore, you can expect to see that the process is not active.
 
 ### `rmpc`
 
