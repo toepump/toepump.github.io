@@ -1,6 +1,5 @@
 // Site colour theme layered over Bulma's defaults: dark only, in slate blues
-// modelled on pi.dev. Replaces the DeepThought theme's light mode and its
-// invert(1)-filter dark mode.
+// modelled on pi.dev.
 
 // Dotted page background: one dot every $gap, faded out towards the bottom of
 // the viewport by the top layer (after pi.dev's graph paper).
@@ -25,25 +24,6 @@ $heading:  #ebe7e4;
 $muted:    #9fa4ab;
 $accent:   #6a9fcc;
 $code:     #f09082;
-
-// The theme's script still applies its invert-filter dark mode for visitors
-// who turned it on before; undo the filter, since the colours below replace it.
-body[theme="dark"],
-img[theme="dark"],
-picture[theme="dark"],
-video[theme="dark"],
-pre[theme="dark"],
-.vimeo[theme="dark"],
-.youtube[theme="dark"],
-.chart[theme="dark"] {
-  filter: none;
-}
-
-// The theme's light/dark toggle; there is only one theme now. Hidden rather
-// than removed because the theme's script attaches to it.
-#dark-mode {
-  display: none !important;
-}
 
 html {
   background-color: $canvas;
