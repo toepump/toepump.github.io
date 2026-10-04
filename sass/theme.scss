@@ -2,40 +2,15 @@
 // Light: warm, paper-like. Dark: slate blues modelled on pi.dev, replacing
 // the DeepThought theme's invert(1) filter.
 
-// Graph-paper page background, after pi.dev: faint lines every $gap, stronger
-// lines every 5 * $gap, and small crosses where the strong lines meet (the
-// radial gradient paints over everything but the centre of each intersection).
-// The top layer fades the grid out towards the bottom of the viewport.
-@mixin graph-paper($bg, $minor, $major, $cross, $gap: 4px) {
-  $cell: $gap * 5;
-
+// Dotted page background: one dot every $gap, faded out towards the bottom of
+// the viewport by the top layer (after pi.dev's graph paper).
+@mixin dot-grid($bg, $dot, $gap: 20px, $size: 1px) {
   background-image:
     linear-gradient(to bottom, rgba($bg, 0), $bg 90%),
-    linear-gradient($minor 0 1px, transparent 1px $gap),
-    linear-gradient(to right, $minor 0 1px, transparent 1px $gap),
-    linear-gradient($major 0 1px, transparent 1px $cell),
-    linear-gradient(to right, $major 0 1px, transparent 1px $cell),
-    radial-gradient(circle at center, transparent $gap * 0.5, $bg $gap * 0.5 100%),
-    linear-gradient($cross 0 1px, transparent 1px $cell),
-    linear-gradient(to right, $cross 0 1px, transparent 1px $cell);
+    radial-gradient(circle at center, $dot $size, transparent $size + 0.5px);
   background-size:
     100% 100%,
-    $gap $gap,
-    $gap $gap,
-    $cell $cell,
-    $cell $cell,
-    $cell $cell,
-    $cell $cell,
-    $cell $cell;
-  background-position:
-    0 0,
-    0 0,
-    0 0,
-    0 0,
-    0 0,
-    $gap * -2.5 $gap * -2.5,
-    0 0,
-    0 0;
+    $gap $gap;
   background-attachment: fixed;
 }
 
@@ -56,7 +31,7 @@ html:has(> body:not([theme="dark"])) {
 body:not([theme="dark"]) {
   background-color: $paper !important;  // beats .has-background-white
   color: $text;
-  @include graph-paper($paper, rgba($text, 0.008), rgba($text, 0.018), rgba($text, 0.045));
+  @include dot-grid($paper, rgba($text, 0.14));
 
   .content,
   .subtitle {
@@ -157,7 +132,7 @@ body[theme="dark"] {
   background-color: $d-canvas !important;  // beats .has-background-white
   color-scheme: dark;
   color: $d-text;
-  @include graph-paper($d-canvas, hsla(218, 60%, 80%, 0.007), hsla(218, 60%, 80%, 0.019), hsla(218, 60%, 80%, 0.055));
+  @include dot-grid($d-canvas, hsla(218, 60%, 80%, 0.12));
 
   a {
     color: $d-accent;
