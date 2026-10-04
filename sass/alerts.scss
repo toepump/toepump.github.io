@@ -24,9 +24,9 @@ $alerts: (
       display: block;
       margin-bottom: 0.5em;
       color: $color;
-      // Jost has no glyph for the icon codepoint, so the icon falls back to
-      // Font Awesome; its nearest face to 600 is the solid (900) one.
-      font-family: "Jost", "Font Awesome 6 Free", sans-serif;
+      // The site font has no glyph for the icon codepoint, so the icon falls
+      // back to Font Awesome; its nearest face to 600 is the solid (900) one.
+      font-family: "Fira Code", "Font Awesome 6 Free", monospace;
       font-weight: 600;
     }
   }
