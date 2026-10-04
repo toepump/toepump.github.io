@@ -1,0 +1,313 @@
+// Site colour themes layered over Bulma's defaults.
+// Light: warm, paper-like. Dark: slate blues modelled on pi.dev, replacing
+// the DeepThought theme's invert(1) filter.
+
+// Graph-paper page background, after pi.dev: faint lines every $gap, stronger
+// lines every 5 * $gap, and small crosses where the strong lines meet (the
+// radial gradient paints over everything but the centre of each intersection).
+// The top layer fades the grid out towards the bottom of the viewport.
+@mixin graph-paper($bg, $minor, $major, $cross, $gap: 4px) {
+  $cell: $gap * 5;
+
+  background-image:
+    linear-gradient(to bottom, rgba($bg, 0), $bg 90%),
+    linear-gradient($minor 0 1px, transparent 1px $gap),
+    linear-gradient(to right, $minor 0 1px, transparent 1px $gap),
+    linear-gradient($major 0 1px, transparent 1px $cell),
+    linear-gradient(to right, $major 0 1px, transparent 1px $cell),
+    radial-gradient(circle at center, transparent $gap * 0.5, $bg $gap * 0.5 100%),
+    linear-gradient($cross 0 1px, transparent 1px $cell),
+    linear-gradient(to right, $cross 0 1px, transparent 1px $cell);
+  background-size:
+    100% 100%,
+    $gap $gap,
+    $gap $gap,
+    $cell $cell,
+    $cell $cell,
+    $cell $cell,
+    $cell $cell,
+    $cell $cell;
+  background-position:
+    0 0,
+    0 0,
+    0 0,
+    0 0,
+    0 0,
+    $gap * -2.5 $gap * -2.5,
+    0 0,
+    0 0;
+  background-attachment: fixed;
+}
+
+// ---- Light ----
+
+$paper:   #f7f1e3;  // page background
+$raised:  #fbf7ee;  // dropdowns, modals, inputs
+$surface: #ede5d3;  // navbar, code, blockquotes, tags
+$surface-hover: #e3d8c1;
+$border: #ddd2bd;
+$text:    #4a433a;
+$heading: #2f2a24;
+
+html:has(> body:not([theme="dark"])) {
+  background-color: $paper;
+}
+
+body:not([theme="dark"]) {
+  background-color: $paper !important;  // beats .has-background-white
+  color: $text;
+  @include graph-paper($paper, rgba($text, 0.008), rgba($text, 0.018), rgba($text, 0.045));
+
+  .content,
+  .subtitle {
+    color: $text;
+  }
+
+  .title,
+  .content h1, .content h2, .content h3,
+  .content h4, .content h5, .content h6,
+  .content strong {
+    color: $heading;
+  }
+
+  .navbar.is-light,
+  .navbar.is-light .navbar-menu,
+  .navbar-dropdown,
+  .modal-card-head,
+  .modal-card-foot {
+    background-color: $surface;
+  }
+
+  .navbar.is-light a.navbar-item:hover,
+  .navbar.is-light a.navbar-item:focus,
+  .navbar.is-light a.navbar-item.is-active {
+    background-color: $surface-hover;
+  }
+
+  .footer {
+    background-color: $paper;
+  }
+
+  .card,
+  .box {
+    background-color: $paper;
+  }
+
+  .dropdown-content,
+  .modal-card-body,
+  .table,
+  .input,
+  .textarea,
+  .select select {
+    background-color: $raised;
+  }
+
+  .input,
+  .textarea,
+  .select select {
+    border-color: $border;
+  }
+
+  :not(pre) > code,
+  pre,
+  hr,
+  .tag:not(body),
+  .notification,
+  .content blockquote {
+    background-color: $surface;
+  }
+
+  .content table td,
+  .content table th {
+    border-color: $border;
+  }
+}
+
+// ---- Dark ----
+
+$d-deep:     #0d1116;  // code blocks
+$d-canvas:   #161d27;  // page background
+$d-panel:    #212730;  // navbar, modals, inline code
+$d-soft:     #252f3d;  // hover/active
+$d-line:     #495059;
+$d-text:     #d5d8db;
+$d-heading:  #ebe7e4;
+$d-muted:    #9fa4ab;
+$d-accent:   #6a9fcc;
+$d-code:     #f09082;
+
+// Undo the theme's invert filter; the colours below replace it.
+body[theme="dark"],
+img[theme="dark"],
+picture[theme="dark"],
+video[theme="dark"],
+pre[theme="dark"],
+.vimeo[theme="dark"],
+.youtube[theme="dark"],
+.chart[theme="dark"] {
+  filter: none;
+}
+
+html:has(> body[theme="dark"]) {
+  background-color: $d-canvas;
+  color-scheme: dark;
+}
+
+body[theme="dark"] {
+  background-color: $d-canvas !important;  // beats .has-background-white
+  color-scheme: dark;
+  color: $d-text;
+  @include graph-paper($d-canvas, hsla(218, 60%, 80%, 0.007), hsla(218, 60%, 80%, 0.019), hsla(218, 60%, 80%, 0.055));
+
+  a {
+    color: $d-accent;
+  }
+
+  .content,
+  .subtitle,
+  .has-text-dark,
+  .has-text-black,
+  .navbar-item,
+  .navbar-burger,
+  .heading,
+  .label,
+  .navbar.is-light .navbar-item,
+  .navbar.is-light .navbar-burger {
+    color: $d-text;
+  }
+
+  .title,
+  strong,
+  .content h1, .content h2, .content h3,
+  .content h4, .content h5, .content h6,
+  .navbar.is-light .navbar-brand .navbar-item {
+    color: $d-heading;
+  }
+
+  // Bulma's has-text-* helpers are !important.
+  .has-text-dark,
+  .has-text-black {
+    color: $d-heading !important;
+  }
+
+  .has-text-grey {
+    color: $d-muted !important;
+  }
+
+  .has-text-info-dark {
+    color: $d-accent !important;
+  }
+
+  .has-text-danger-dark {
+    color: $d-code !important;
+  }
+
+  // Social icons use brand colours; GitHub's is near-black.
+  [class*="has-text-github"] {
+    color: $d-text !important;
+  }
+
+  .navbar.is-light,
+  .navbar.is-light .navbar-menu,
+  .navbar-dropdown,
+  .modal-card-head,
+  .modal-card-foot {
+    background-color: $d-panel;
+  }
+
+  .navbar.is-light a.navbar-item:hover,
+  .navbar.is-light a.navbar-item:focus,
+  .navbar.is-light a.navbar-item.is-active {
+    background-color: $d-soft;
+    color: $d-heading;
+  }
+
+  .modal-card-title {
+    color: $d-heading;
+  }
+
+  .footer,
+  .card,
+  .box {
+    background-color: $d-canvas;
+    color: $d-text;
+  }
+
+  .card,
+  .box {
+    box-shadow: 0 0 0 1px rgba($d-line, 0.5), 0 0.5em 1em -0.125em rgba(0, 0, 0, 0.4);
+  }
+
+  .dropdown-content,
+  .modal-card-body,
+  .table,
+  .input,
+  .textarea,
+  .select select {
+    background-color: $d-canvas;
+    color: $d-text;
+  }
+
+  .input,
+  .textarea,
+  .select select {
+    border-color: $d-line;
+  }
+
+  :not(pre) > code,
+  .tag:not(body),
+  .notification,
+  .content blockquote {
+    background-color: $d-panel;
+    color: $d-text;
+  }
+
+  :not(pre) > code {
+    color: $d-code;
+  }
+
+  pre {
+    background-color: $d-deep;
+    scrollbar-color: $d-line $d-deep;
+  }
+
+  hr {
+    background-color: rgba($d-line, 0.5);
+  }
+
+  .content table td,
+  .content table th {
+    border-color: $d-line;
+    color: $d-text;
+  }
+
+  .menu-list a {
+    color: $d-muted;
+
+    &:hover {
+      background-color: $d-soft;
+      color: $d-heading;
+    }
+
+    &.is-active {
+      background-color: $d-accent;
+      color: $d-deep;
+    }
+  }
+
+  .menu-list li ul {
+    border-left-color: $d-line;
+  }
+
+  .button.is-black.is-outlined {
+    background-color: transparent;
+    border-color: $d-text;
+    color: $d-text;
+
+    &:hover,
+    &:focus {
+      background-color: $d-text;
+      color: $d-canvas;
+    }
+  }
+}

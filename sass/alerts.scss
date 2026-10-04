@@ -1,19 +1,20 @@
 // Styles for GitHub-style callouts (`> [!NOTE]` etc.), which Zola renders as
 // <blockquote class="markdown-alert-*"> when `markdown.github_alerts` is on.
-// Colors are GitHub's light-mode palette; the theme's dark mode inverts them.
+// Colors are GitHub's light- and dark-mode palettes.
 
 $alerts: (
-  "note":      ("Note",      #0969da, "\f05a"),  // circle-info
-  "tip":       ("Tip",       #1a7f37, "\f0eb"),  // lightbulb
-  "important": ("Important", #8250df, "\f27a"),  // message
-  "warning":   ("Warning",   #9a6700, "\f071"),  // triangle-exclamation
-  "caution":   ("Caution",   #cf222e, "\f06a"),  // circle-exclamation
+  "note":      ("Note",      #0969da, #4493f8, "\f05a"),  // circle-info
+  "tip":       ("Tip",       #1a7f37, #3fb950, "\f0eb"),  // lightbulb
+  "important": ("Important", #8250df, #ab7df8, "\f27a"),  // message
+  "warning":   ("Warning",   #9a6700, #d29922, "\f071"),  // triangle-exclamation
+  "caution":   ("Caution",   #cf222e, #f85149, "\f06a"),  // circle-exclamation
 );
 
 @each $type, $alert in $alerts {
   $title: nth($alert, 1);
   $color: nth($alert, 2);
-  $icon: nth($alert, 3);
+  $dark: nth($alert, 3);
+  $icon: nth($alert, 4);
 
   .content blockquote.markdown-alert-#{$type} {
     border-left-color: $color;
@@ -27,6 +28,14 @@ $alerts: (
       // Font Awesome; its nearest face to 600 is the solid (900) one.
       font-family: "Jost", "Font Awesome 6 Free", sans-serif;
       font-weight: 600;
+    }
+  }
+
+  body[theme="dark"] .content blockquote.markdown-alert-#{$type} {
+    border-left-color: $dark;
+
+    &::before {
+      color: $dark;
     }
   }
 }
