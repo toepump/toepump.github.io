@@ -2,5 +2,6 @@
 title = "Posts"
 description = ""
 sort_by = "date"
-paginate_by = 5
+# The posts are listed inline on the home page, so don't render /posts itself.
+render = false
 +++

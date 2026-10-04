@@ -14,7 +14,9 @@ theme = "DeepThought"
 
 taxonomies = [
     { name = "categories", feed = true, paginate_by = 10 },
-    { name = "tags", feed = true, paginate_by = 10 },
+    # Tags are used only to filter posts on the home page; no tag pages are
+    # generated. Individual terms stay available via `page.taxonomies.tags`.
+    { name = "tags", render = false },
 ]
 
 [markdown]
@@ -45,13 +47,8 @@ chart.enabled = true
 mermaid.enabled = false
 galleria.enabled = false
 
-navbar_items = [
- { code = "en", nav_items = [
-  { url = "$BASE_URL/", name = "Home" },
-  { url = "$BASE_URL/posts", name = "Posts" },
-  { url = "$BASE_URL/tags", name = "Tags" },
- ]},
-]
+# The site is a single home page; the navbar only shows the site title.
+navbar_items = []
 
 # Add links to favicon, you can use https://realfavicongenerator.net/ to generate favicon for your site
 [extra.favicon]

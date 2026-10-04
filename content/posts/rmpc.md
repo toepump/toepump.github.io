@@ -24,7 +24,7 @@ Dependencies needed: `mpd`, `rmpc`, (optional) `cava` for visualizer.
 
 > Configurable, terminal based MPD Client with album art support via various terminal image protocols
 
-Me :confused: : Uh-huh... what's MPD?
+Me: Uh-huh... what's MPD?
 
 Right, MPD is Music Player Daemon which is a server-side application for playing music.
 The only thing we need to know (re: the only thing I know) is that it's a common backend driver for many GUI frontends, like the one we're interested in: `rmpc`.
@@ -61,7 +61,7 @@ Like:
 It can also be heavily configured. If you're interested to learn about more advanaced configurations then visit the [webpage](https://mpd.readthedocs.io/en/stable/index.html).
 
 For my purposes, `mpd` is only really needed at the most basic level - for just playing my local audio files and making them easy to organize, queue up, etc.
-So the configuration is actually very light :thumbsup:.
+So the configuration is actually very light.
 
 ## Installation
 
@@ -153,7 +153,7 @@ systemctl --user status mpd
 > [!WARNING]
 > If you forget to include `--user`, then you will be checking for a system-wide `mpd`, which you never started. Therefore, you can expect to see that the process is not active.
 
-### `rmpc`
+# `rmpc`
 
 `rmpc` is pretty straightforward to set up.
 
@@ -196,9 +196,7 @@ If they don't show up right, then try doing `rmpc update`.
 You shouldn't need to do this though as it should be automatically updating when you open `rmpc` due to the `mpd` configuration that you set earlier: `auto_update: "yes"`.
 
 You can also try your hand at customizing the paneling, themes, etc. There are a lot ways to configure `rmpc`.
-You can go ahead and refer to my custom theme in my [dotfiles](https://github.com/toepump/dotfiles) if it's to your liking :smile:!
+You can go ahead and refer to my custom theme in my [dotfiles](https://github.com/toepump/dotfiles) if it's to your liking!
 
 ![my customized rmpc](/images/custom_rmpc.png "my custom theme for rmpc")
-
-That's it! Enjoy!
 

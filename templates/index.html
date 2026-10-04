@@ -1,10 +1,12 @@
 {% extends "DeepThought/templates/index.html" %}
+
 {% block content %}
+    {% set posts_section = get_section(path="posts/_index.md") %}
+    {% set posts = posts_section.pages %}
+
     <section class="section">
         <div class="container is-max-desktop">
             <div class="has-text-centered">
-                <h1 class="title is-2">{{ section.title }}</h1>
-                <p class="subtitle is-4">{{ section.description }}</p>
                 {% if config.extra.author.avatar %}
                     <figure class="image is-flex is-justify-content-center is-align-items-center">
                         <img class="is-rounded"
@@ -15,7 +17,104 @@
                 {{ <social_links social_config={config.extra.social} /> }}
             </div>
             <div class="content">{{ section.content | safe }}</div>
-			<hr />
         </div>
     </section>
+
+    <section class="section" id="posts">
+        <div class="container is-max-desktop">
+            <h2 class="title is-3">Posts</h2>
+            <div class="field">
+                <div class="control has-icons-left">
+                    <input class="input"
+                           id="search"
+                           placeholder="Search this website."
+                           type="search" />
+                    <span class="icon is-left">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="search-results" style="display: none;">
+                <div class="search-results__items"></div>
+            </div>
+
+            <details class="tag-filter mt-5" id="tag-filter">
+                <summary>
+                    <span class="icon-text">
+                        <span class="icon">
+                            <i class="fas fa-tags"></i>
+                        </span>
+                        <span>Filter by Tag</span>
+                        <span class="icon tag-filter__chevron">
+                            <i class="fas fa-chevron-right"></i>
+                        </span>
+                    </span>
+                </summary>
+                <div class="buttons mt-3">
+                    <button class="button is-small tag-filter__button is-active"
+                            data-tag=""
+                            type="button">All</button>
+                    {# One button per post tag; home.js de-duplicates them. #}
+                    {% for page in posts %}
+                        {% for tag in page.taxonomies.tags %}
+                            <button class="button is-small tag-filter__button"
+                                    data-tag="{{ tag }}"
+                                    type="button">{{ tag }}</button>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </details>
+
+            <p class="has-text-right has-text-grey mt-5" id="post-count">
+                <span class="post-count__number" id="post-count-number">{{ posts | length }}</span>
+                <span id="post-count-label">{% if posts | length == 1 %}Post{% else %}Posts{% endif %}</span>
+            </p>
+
+            <div class="mt-5" id="post-list">
+                {% for page in posts %}
+                    <article class="box post-card"
+                             data-tags="{{ page.taxonomies.tags | join(sep='|') }}">
+                        <h2 class="title">
+                            <a class="has-text-dark" href='{{ page.permalink }}'>{{ page.title }}</a>
+                        </h2>
+                        <p class="subtitle">{{ page.description }}</p>
+                        <div class="columns is-multiline is-gapless">
+                            <div class="column is-8">{{ <page_publish_metadata page={page} /> }}</div>
+                            <div class="column is-4 has-text-right-desktop">{{ <page_content_metadata page={page} /> }}</div>
+                        </div>
+                        <div class="content mt-2">
+                            {{ page.summary | safe }}
+                            <a class="has-text-danger-dark has-text-weight-semibold"
+                               href='{{ page.permalink }}'>
+                                Read More
+                                <span class="icon is-small">
+                                    <i class="fas fa-arrow-right fa-xs"></i>
+                                </span>
+                            </a>
+                        </div>
+                        {% if page.taxonomies.tags %}
+                            <p class="post-card__tags">
+                                {% for tag in page.taxonomies.tags %}
+                                    <a class="tag-chip has-text-info-dark has-text-weight-semibold"
+                                       data-tag="{{ tag }}"
+                                       href="#post-list">
+                                        <span class="icon-text">
+                                            <span class="icon">
+                                                <i class="fas fa-tag"></i>
+                                            </span>
+                                            <span>{{ tag }}</span>
+                                        </span>
+                                    </a>
+                                {% endfor %}
+                            </p>
+                        {% endif %}
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block custom_js %}
+    <script src="{{ get_url(path='js/home.js') }}"></script>
 {% endblock %}

@@ -3,25 +3,6 @@
     <link href="{{ get_url(path='alerts.css') }}" rel="stylesheet" />
     <link href="{{ get_url(path='theme.css') }}" rel="stylesheet" />
 {% endblock %}
-{% block footer %}
-    <!-- <footer class="footer py-4"> -->
-    <!--     <div class="content has-text-centered"> -->
-    <!--         <p> -->
-    <!--             Built with -->
-    <!--             <span class="icon-text"> -->
-    <!--                 <span class="icon"> -->
-    <!--                     <i class="fas fa-code"></i> -->
-    <!--                 </span> -->
-    <!--                 <span>code</span> -->
-    <!--             </span> -->
-    <!--             and -->
-    <!--             <span class="icon-text"> -->
-    <!--                 <span class="icon"> -->
-    <!--                     <i class="fas fa-heart"></i> -->
-    <!--                 </span> -->
-    <!--                 <span>blood</span> -->
-    <!--             </span> -->
-    <!--         </p> -->
-    <!--     </div> -->
-    <!-- </footer> -->
-{% endblock %}
+{# The search box lives inline on the home page, not in a modal. #}
+{% block search %}{% endblock %}
+{% block footer %}{% endblock %}

@@ -172,10 +172,13 @@ function search() {
 
 function documentReadyCallback() {
 
-  document.querySelector(".navbar-burger").addEventListener("click", () => {
-    document.querySelector(".navbar-burger").classList.toggle("is-active");
-    document.querySelector(".navbar-menu").classList.toggle("is-active");
-  });
+  const burger = document.querySelector(".navbar-burger");
+  if (burger) {
+    burger.addEventListener("click", () => {
+      burger.classList.toggle("is-active");
+      document.querySelector(".navbar-menu").classList.toggle("is-active");
+    });
+  }
 
   document.querySelectorAll("div.navbar-end > .navbar-item").forEach((el) => {
     if (location.href.includes(el.getAttribute("href"))) {
@@ -184,28 +187,41 @@ function documentReadyCallback() {
     }
   })
 
-  document.getElementById("nav-search").addEventListener("click", (evt) => {
-    //let target = evt.currentTarget.getAttribute("data-target");
-    document.querySelector("html").classList.add("is-clipped");
-    document.getElementById("search-modal").classList.add("is-active");
+  // The search modal is optional: the site may render an inline search box
+  // instead (see the home page template). Guard every modal-related listener.
+  const navSearch = document.getElementById("nav-search");
+  const searchModal = document.getElementById("search-modal");
+  if (navSearch && searchModal) {
+    navSearch.addEventListener("click", (evt) => {
+      //let target = evt.currentTarget.getAttribute("data-target");
+      document.querySelector("html").classList.add("is-clipped");
+      searchModal.classList.add("is-active");
 
-    document.getElementById("search").focus();
-    document.getElementById("search").select();
+      document.getElementById("search").focus();
+      document.getElementById("search").select();
+    });
+  }
+
+  document.querySelectorAll(".modal-close").forEach((el) => {
+    el.addEventListener("click", (evt) => {
+      document.querySelector("html").classList.remove("is-clipped");
+      evt.currentTarget.parentElement.classList.remove("is-active");
+    });
   });
 
-  document.querySelector(".modal-close").addEventListener("click", (evt) => {
-    document.querySelector("html").classList.remove("is-clipped");
-    evt.currentTarget.parentElement.classList.remove("is-active");
+  document.querySelectorAll(".modal-background").forEach((el) => {
+    el.addEventListener("click", (evt) => {
+      document.querySelector("html").classList.remove("is-clipped");
+      evt.currentTarget.parentElement.classList.remove("is-active");
+    });
   });
 
-  document.querySelector(".modal-background").addEventListener("click", (evt) => {
-    document.querySelector("html").classList.remove("is-clipped");
-    evt.currentTarget.parentElement.classList.remove("is-active");
-  });
-
-  document.getElementById("search").addEventListener("keyup", () => {
-    search();
-  });
+  const searchInput = document.getElementById("search");
+  if (searchInput) {
+    searchInput.addEventListener("keyup", () => {
+      search();
+    });
+  }
 
   if (typeof mermaid !== "undefined") {
     mermaid.initialize({ startOnLoad: true });

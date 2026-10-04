@@ -1,0 +1,16 @@
+{% component render_tags(tags) %}
+<p>
+  Tags:
+  {% for tag in tags %}
+  {# Tag pages are not rendered; tags are plain labels on post pages. #}
+  <span class="has-text-info-dark has-text-weight-semibold">
+    <span class="icon-text">
+      <span class="icon">
+        <i class="fas fa-tag"></i>
+      </span>
+      <span>{{tag}}</span>
+    </span>
+  </span>
+  {% endfor %}
+</p>
+{% endcomponent render_tags %}
