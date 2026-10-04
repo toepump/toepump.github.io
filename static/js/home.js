@@ -16,13 +16,13 @@
     }
 
     var cards = Array.prototype.slice.call(
-      postList.querySelectorAll("article.post-card")
+      postList.querySelectorAll("article.post-card"),
     );
     var filterButtons = Array.prototype.slice.call(
-      document.querySelectorAll(".tag-filter__button")
+      document.querySelectorAll(".tag-filter__button"),
     );
     var tagChips = Array.prototype.slice.call(
-      document.querySelectorAll(".tag-chip")
+      document.querySelectorAll(".tag-chip"),
     );
     var activeTags = [];
 
@@ -55,7 +55,9 @@
           return (btn.getAttribute("data-tag") || "") !== "";
         })
         .sort(function (a, b) {
-          return a.getAttribute("data-tag").localeCompare(b.getAttribute("data-tag"));
+          return a
+            .getAttribute("data-tag")
+            .localeCompare(b.getAttribute("data-tag"));
         });
 
       if (all) {
@@ -83,7 +85,10 @@
         btn.classList.toggle("is-active", on);
       });
       tagChips.forEach(function (chip) {
-        chip.classList.toggle("is-active", isActive(chip.getAttribute("data-tag") || ""));
+        chip.classList.toggle(
+          "is-active",
+          isActive(chip.getAttribute("data-tag") || ""),
+        );
       });
     }
 
@@ -170,6 +175,11 @@
 
     searchInput.addEventListener("input", render);
     searchInput.addEventListener("keyup", render);
+
+    // site.js provides the site-wide search engine; wire it to this input.
+    if (typeof search === "function") {
+      search();
+    }
 
     render();
   }
