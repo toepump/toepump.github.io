@@ -13,17 +13,32 @@
   background-attachment: fixed;
 }
 
-$deep:     #0d1116;  // code blocks
-$canvas:   #161d27;  // page background
-$panel:    #212730;  // modals, inline code
-$soft:     #252f3d;  // navbar, hover
-$lift:     #384760;  // navbar hover/active
-$line:     #495059;
-$text:     #d5d8db;
-$heading:  #ebe7e4;
-$muted:    #9fa4ab;
-$accent:   #6a9fcc;
-$code:     #f09082;
+$deep: #0d1116; // code blocks
+$canvas: #161d27; // page background
+$panel: #212730; // modals, inline code
+$soft: #252f3d; // navbar, hover
+$lift: #384760; // navbar hover/active
+$line: #495059;
+$text: #d5d8db;
+$heading: #ebe7e4;
+$muted: #9fa4ab;
+$accent: #6a9fcc;
+$code: #f09082;
+$warning: #d29922; // matches the warning callout in alerts.scss
+
+// Shared look for tag pills: used by the card chips and the filter buttons so
+// they are visually identical in size and shape.
+@mixin tag-pill {
+  display: inline-block;
+  height: auto;
+  min-height: 0;
+  padding: 0.15rem 0.5rem;
+  background-color: $panel;
+  border: 1px solid $line;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
 
 html {
   background-color: $canvas;
@@ -32,7 +47,7 @@ html {
 
 // `:root body` gives these rules enough specificity to beat Bulma's.
 :root body {
-  background-color: $canvas !important;  // beats .has-background-white
+  background-color: $canvas !important; // beats .has-background-white
   color: $text;
   @include dot-grid($canvas, hsla(218, 60%, 80%, 0.12));
 
@@ -55,8 +70,12 @@ html {
 
   .title,
   strong,
-  .content h1, .content h2, .content h3,
-  .content h4, .content h5, .content h6,
+  .content h1,
+  .content h2,
+  .content h3,
+  .content h4,
+  .content h5,
+  .content h6,
   .navbar.is-light .navbar-brand .navbar-item {
     color: $heading;
   }
@@ -84,9 +103,32 @@ html {
     color: $text !important;
   }
 
+  // Transparent navbar; only the home button keeps a solid background.
   .navbar.is-light,
   .navbar.is-light .navbar-menu {
-    background-color: $soft;
+    background-color: transparent;
+  }
+
+  // Only the brand remains, so hide the (empty) menu and centre the button.
+  .navbar.is-light .navbar-menu {
+    display: none;
+  }
+
+  .navbar.is-light .navbar-brand {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .navbar.is-light .navbar-brand .navbar-item {
+    background-color: transparent;
+    border-radius: 6px;
+    margin: 0.4rem 0;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: $lift;
+    }
   }
 
   .navbar-dropdown,
@@ -123,7 +165,9 @@ html {
 
   .card,
   .box {
-    box-shadow: 0 0 0 1px rgba($line, 0.5), 0 0.5em 1em -0.125em rgba(0, 0, 0, 0.4);
+    box-shadow:
+      0 0 0 1px rgba($line, 0.5),
+      0 0.5em 1em -0.125em rgba(0, 0, 0, 0.4);
   }
 
   .dropdown-content,
@@ -175,6 +219,27 @@ html {
     color: $text;
   }
 
+  // More breathing room between markdown paragraphs (Bulma defaults to 1em).
+  // Adjacent margins collapse, so the effective gap is the larger value.
+  .content p:not(:first-child) {
+    margin-top: 2em;
+  }
+
+  .content p:not(:last-child) {
+    margin-bottom: 2em;
+  }
+
+  // List rhythm: item-to-item gap and nested-list gaps kept equal.
+  .content li + li {
+    margin-top: 0.5em;
+  }
+
+  .content li > ul,
+  .content li > ol {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
   .menu-list a {
     color: $muted;
 
@@ -202,6 +267,88 @@ html {
     &:focus {
       background-color: $text;
       color: $canvas;
+    }
+  }
+
+  // Single-page layout: the navbar keeps only the site title.
+  #nav-search,
+  .navbar-burger {
+    display: none;
+  }
+
+  // Inline site search on the home page.
+  .search-results {
+    margin-top: 0.75rem;
+  }
+
+  .search-results__items .box {
+    margin-bottom: 1rem;
+  }
+
+  // Post count: the number uses the warning-alert amber.
+  .post-count__number {
+    color: $warning;
+  }
+
+  // Collapsible tag filter above the post list.
+  .tag-filter > summary {
+    cursor: pointer;
+    color: $muted;
+    font-weight: 600;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &:hover {
+      color: $heading;
+    }
+  }
+
+  // Chevron points right when closed, down when open.
+  .tag-filter__chevron {
+    transition: transform 0.15s ease;
+  }
+
+  .tag-filter[open] .tag-filter__chevron {
+    transform: rotate(90deg);
+  }
+
+  .tag-filter__button.button {
+    @include tag-pill;
+    color: $text;
+
+    &:hover,
+    &:focus {
+      background-color: $soft;
+      border-color: $lift;
+      color: $heading;
+    }
+
+    &.is-active {
+      background-color: $accent;
+      border-color: $accent;
+      color: $deep;
+    }
+  }
+
+  .tag-chip {
+    @include tag-pill;
+    margin-right: 0.75rem;
+    color: $accent !important;
+
+    &:hover,
+    &:focus {
+      background-color: $soft;
+      border-color: $lift;
+      color: $heading !important;
+    }
+
+    &.is-active {
+      background-color: $accent;
+      border-color: $accent;
+      color: $deep !important;
     }
   }
 }
