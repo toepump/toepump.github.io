@@ -1,0 +1,207 @@
+// Site colour theme layered over Bulma's defaults: dark only, in slate blues
+// modelled on pi.dev.
+
+// Dotted page background: one dot every $gap, faded out towards the bottom of
+// the viewport by the top layer (after pi.dev's graph paper).
+@mixin dot-grid($bg, $dot, $gap: 20px, $size: 1px) {
+  background-image:
+    linear-gradient(to bottom, rgba($bg, 0), $bg 90%),
+    radial-gradient(circle at center, $dot $size, transparent $size + 0.5px);
+  background-size:
+    100% 100%,
+    $gap $gap;
+  background-attachment: fixed;
+}
+
+$deep:     #0d1116;  // code blocks
+$canvas:   #161d27;  // page background
+$panel:    #212730;  // modals, inline code
+$soft:     #252f3d;  // navbar, hover
+$lift:     #384760;  // navbar hover/active
+$line:     #495059;
+$text:     #d5d8db;
+$heading:  #ebe7e4;
+$muted:    #9fa4ab;
+$accent:   #6a9fcc;
+$code:     #f09082;
+
+html {
+  background-color: $canvas;
+  color-scheme: dark;
+}
+
+// `:root body` gives these rules enough specificity to beat Bulma's.
+:root body {
+  background-color: $canvas !important;  // beats .has-background-white
+  color: $text;
+  @include dot-grid($canvas, hsla(218, 60%, 80%, 0.12));
+
+  a {
+    color: $accent;
+  }
+
+  .content,
+  .subtitle,
+  .has-text-dark,
+  .has-text-black,
+  .navbar-item,
+  .navbar-burger,
+  .heading,
+  .label,
+  .navbar.is-light .navbar-item,
+  .navbar.is-light .navbar-burger {
+    color: $text;
+  }
+
+  .title,
+  strong,
+  .content h1, .content h2, .content h3,
+  .content h4, .content h5, .content h6,
+  .navbar.is-light .navbar-brand .navbar-item {
+    color: $heading;
+  }
+
+  // Bulma's has-text-* helpers are !important.
+  .has-text-dark,
+  .has-text-black {
+    color: $heading !important;
+  }
+
+  .has-text-grey {
+    color: $muted !important;
+  }
+
+  .has-text-info-dark {
+    color: $accent !important;
+  }
+
+  .has-text-danger-dark {
+    color: $code !important;
+  }
+
+  // Social icons use brand colours; GitHub's is near-black.
+  [class*="has-text-github"] {
+    color: $text !important;
+  }
+
+  .navbar.is-light,
+  .navbar.is-light .navbar-menu {
+    background-color: $soft;
+  }
+
+  .navbar-dropdown,
+  .modal-card-head,
+  .modal-card-foot {
+    background-color: $panel;
+  }
+
+  .navbar.is-light a.navbar-item:hover,
+  .navbar.is-light a.navbar-item:focus,
+  .navbar.is-light a.navbar-item.is-active {
+    background-color: $lift;
+    color: $heading;
+  }
+
+  .modal-card-head {
+    border-bottom-color: $line;
+  }
+
+  .modal-card-foot {
+    border-top-color: $line;
+  }
+
+  .modal-card-title {
+    color: $heading;
+  }
+
+  .footer,
+  .card,
+  .box {
+    background-color: $canvas;
+    color: $text;
+  }
+
+  .card,
+  .box {
+    box-shadow: 0 0 0 1px rgba($line, 0.5), 0 0.5em 1em -0.125em rgba(0, 0, 0, 0.4);
+  }
+
+  .dropdown-content,
+  .modal-card-body,
+  .table,
+  .input,
+  .textarea,
+  .select select {
+    background-color: $canvas;
+    color: $text;
+  }
+
+  .input,
+  .textarea,
+  .select select {
+    border-color: $line;
+  }
+
+  .input::placeholder,
+  .textarea::placeholder {
+    color: $muted;
+    opacity: 1;
+  }
+
+  :not(pre) > code,
+  .tag:not(body),
+  .notification,
+  .content blockquote {
+    background-color: $panel;
+    color: $text;
+  }
+
+  :not(pre) > code {
+    color: $code;
+  }
+
+  pre {
+    background-color: $deep;
+    scrollbar-color: $line $deep;
+  }
+
+  hr {
+    background-color: rgba($line, 0.5);
+  }
+
+  .content table td,
+  .content table th {
+    border-color: $line;
+    color: $text;
+  }
+
+  .menu-list a {
+    color: $muted;
+
+    &:hover {
+      background-color: $soft;
+      color: $heading;
+    }
+
+    &.is-active {
+      background-color: $accent;
+      color: $deep;
+    }
+  }
+
+  .menu-list li ul {
+    border-left-color: $line;
+  }
+
+  .button.is-black.is-outlined {
+    background-color: transparent;
+    border-color: $text;
+    color: $text;
+
+    &:hover,
+    &:focus {
+      background-color: $text;
+      color: $canvas;
+    }
+  }
+}
