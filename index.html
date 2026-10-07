@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="#252f3d" name="theme-color" />
+        <meta content="#da532c" name="msapplication-TileColor" />
+        
+        
+        
+            <link href='/images/avatar.png'
+                  rel="icon"
+                  sizes="16x16"
+                  type="image/png" />
+        
+        
+            <link href='/images/avatar.png'
+                  rel="icon"
+                  sizes="32x32"
+                  type="image/png" />
+        
+        
+        
+        
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1.9.1/css/academicons.min.css"
+              integrity="sha384-FIue+PI4SsI9XfHCz8dBLg33b0c1fMJgNU3X//L26FYbGnlSEfWmNT7zgWc2N9b6"
+              crossorigin="anonymous">
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"
+              integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k="
+              crossorigin="anonymous">
+        <link href="https://toepump.github.io/deep-thought.css" rel="stylesheet" />
+        
+    <link href="https://toepump.github.io/alerts.css" rel="stylesheet" />
+    <link href="https://toepump.github.io/theme.css" rel="stylesheet" />
+
+        <title>
+            
+                toepump
+            
+        </title>
+        
+            
+        
+        
+    </head>
+    <body class="has-background-white">
+        <nav aria-label="section navigation"
+             class="navbar is-light"
+             role="navigation">
+            <div class="container">
+                <div class="navbar-brand">
+                    <a class="navbar-item is-size-5 has-text-weight-bold"
+                       href="https://toepump.github.io">toepump</a>
+                    <a aria-expanded="false"
+                       aria-label="menu"
+                       class="navbar-burger burger"
+                       data-target="navMenu"
+                       role="button">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                <div class="navbar-menu" id="navMenu">
+                    <div class="navbar-end has-text-centered">
+                        
+                        <a class="navbar-item"
+                           id="nav-search"
+                           title="Search"
+                           data-target="#search-modal">
+                            <span class="icon">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        
+    
+    
+
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="has-text-centered">
+                
+                    <figure class="image is-flex is-justify-content-center is-align-items-center">
+                        
+                        <img class="is-rounded" src="/images/gun_beast_small_waldgeist_run.gif" style="max-width: 280px"/>
+                    </figure>
+                
+                
+<p>
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  <a class="has-text-github" href="https://github.com/toepump" target="_blank">
+    <span class="icon is-large" title="GitHub">
+      <i class="fab fa-github fa-lg"></i>
+    </span>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</p>
+
+            </div>
+            <div class="content"><p>Hi, I'm <strong>toepump</strong>.</p>
+<p>I'm a <strong>frontend web developer</strong>, <strong>musician</strong>, and hobby <strong>solo game developer</strong>.</p>
+<p>I'm based in <strong>Tokyo, Japan</strong>.</p>
+</div>
+        </div>
+    </section>
+
+    <section class="section" id="posts">
+        <div class="container is-max-desktop">
+            <h2 class="title is-3">Posts</h2>
+            <div class="field">
+                <div class="control has-icons-left">
+                    <input class="input"
+                           id="search"
+                           placeholder="Search this website."
+                           type="search" />
+                    <span class="icon is-left">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="search-results" style="display: none;">
+                <div class="search-results__items"></div>
+            </div>
+
+            <details class="tag-filter mt-5" id="tag-filter">
+                <summary>
+                    <span class="icon-text">
+                        <span class="icon">
+                            <i class="fas fa-tags"></i>
+                        </span>
+                        <span>Filter by Tag</span>
+                        <span class="icon tag-filter__chevron">
+                            <i class="fas fa-chevron-right"></i>
+                        </span>
+                    </span>
+                </summary>
+                <div class="buttons mt-3">
+                    <button class="button is-small tag-filter__button is-active"
+                            data-tag=""
+                            type="button">All</button>
+                    
+                    
+                        
+                            <button class="button is-small tag-filter__button"
+                                    data-tag="linux"
+                                    type="button">linux</button>
+                        
+                            <button class="button is-small tag-filter__button"
+                                    data-tag="music"
+                                    type="button">music</button>
+                        
+                            <button class="button is-small tag-filter__button"
+                                    data-tag="terminal"
+                                    type="button">terminal</button>
+                        
+                    
+                </div>
+            </details>
+
+            <p class="has-text-right has-text-grey mt-5" id="post-count">
+                <span class="post-count__number" id="post-count-number">1</span>
+                <span id="post-count-label">Post</span>
+            </p>
+
+            <div class="mt-5" id="post-list">
+                
+                    <article class="box post-card"
+                             data-tags="linux|music|terminal">
+                        <h2 class="title">
+                            <a class="has-text-dark" href='https://toepump.github.io/posts/rmpc/'>Setting up rmpc (Rusty Music Player Client)</a>
+                        </h2>
+                        <p class="subtitle">How I setup rmpc and returned to the era of simple &amp; personal music library bliss.</p>
+                        <div class="columns is-multiline is-gapless">
+                            <div class="column is-8">
+<span class="icon-text has-text-grey">
+  <span class="icon">
+    <i class="far fa-calendar-alt"></i>
+  </span>
+  <span><time datetime="2025-10-24">October 24, 2025</time></span>
+</span>
+</div>
+                            <div class="column is-4 has-text-right-desktop">
+<span class="icon-text has-text-grey">
+  <span class="icon">
+    <i class="far fa-clock"></i>
+  </span>
+  <span>5 min,</span>
+  <span class="icon">
+    <i class="fas fa-pencil-alt"></i>
+  </span>
+  <span>956 words</span>
+</span>
+</div>
+                        </div>
+                        <div class="content mt-2">
+                            
+                            <a class="has-text-danger-dark has-text-weight-semibold"
+                               href='https://toepump.github.io/posts/rmpc/'>
+                                Read More
+                                <span class="icon is-small">
+                                    <i class="fas fa-arrow-right fa-xs"></i>
+                                </span>
+                            </a>
+                        </div>
+                        
+                            <p class="post-card__tags">
+                                
+                                    <a class="tag-chip has-text-info-dark has-text-weight-semibold"
+                                       data-tag="linux"
+                                       href="#post-list">
+                                        <span class="icon-text">
+                                            <span class="icon">
+                                                <i class="fas fa-tag"></i>
+                                            </span>
+                                            <span>linux</span>
+                                        </span>
+                                    </a>
+                                
+                                    <a class="tag-chip has-text-info-dark has-text-weight-semibold"
+                                       data-tag="music"
+                                       href="#post-list">
+                                        <span class="icon-text">
+                                            <span class="icon">
+                                                <i class="fas fa-tag"></i>
+                                            </span>
+                                            <span>music</span>
+                                        </span>
+                                    </a>
+                                
+                                    <a class="tag-chip has-text-info-dark has-text-weight-semibold"
+                                       data-tag="terminal"
+                                       href="#post-list">
+                                        <span class="icon-text">
+                                            <span class="icon">
+                                                <i class="fas fa-tag"></i>
+                                            </span>
+                                            <span>terminal</span>
+                                        </span>
+                                    </a>
+                                
+                            </p>
+                        
+                    </article>
+                
+            </div>
+        </div>
+    </section>
+
+        
+        
+            
+        
+        
+        
+        
+        
+        
+            <script src="https://cdn.jsdelivr.net/npm/chart.xkcd@1.1.13/dist/chart.xkcd.min.js"
+                    integrity="sha384-xC3h1+IHXK8seA+8KfT79Z4e0GPsznjXBoMa5nd8ooWKplPyXx92NOmljWxLC/cs"
+                    crossorigin="anonymous"></script>
+        
+        
+        <script src="https://toepump.github.io/elasticlunr.min.js"></script>
+        <script src="https://toepump.github.io/search_index.en.js"></script><script src="https://toepump.github.io/js/site.js"></script>
+        
+    <script src="https://toepump.github.io/js/home.js"></script>
+
+        
+        
+    </body>
+</html>
