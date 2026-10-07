@@ -9,9 +9,8 @@
             <div class="has-text-centered">
                 {% if config.extra.author.avatar %}
                     <figure class="image is-flex is-justify-content-center is-align-items-center">
-                        <img class="is-rounded"
-                             src="{{ config.extra.author.avatar }}"
-                             style="max-width: 192px" />
+                        {# Size and crisp pixel scaling are set in sass/theme.scss. #}
+                        <img class="is-rounded" src="{{ config.extra.author.avatar }}" style="max-width: 280px"/>
                     </figure>
                 {% endif %}
                 {{ <social_links social_config={config.extra.social} /> }}

@@ -351,4 +351,16 @@ html {
       color: $deep !important;
     }
   }
+
+  // Author avatar (home page and the theme's 404 page). Sizing lives here
+  // rather than in the templates so there is one knob for it; the `!important`s
+  // beat Bulma's `.image img { width: 100% }` and the inline `max-width: 192px`
+  // the templates used to carry. The sprite is 320×320, so 320px renders it 1:1,
+  // and nearest-neighbour sampling keeps its pixels crisp — any other size
+  // resamples the art (a 0.6× downscale to 192px drops whole pixel rows).
+  figure.image > img.is-rounded {
+    height: auto;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+  }
 }
